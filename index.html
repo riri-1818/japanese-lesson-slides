@@ -4,221 +4,354 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Survival Japanese — Japanese Learning Sydney</title>
+
+<!-- Premium fonts: Plus Jakarta Sans (display) + Noto Sans JP (Japanese) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css">
+
 <style>
+/* ════════════════════════════════════════════
+   DESIGN TOKENS  (8pt grid system)
+════════════════════════════════════════════ */
+:root {
+  /* Brand */
+  --red:   #C8102E;
+  --red80: rgba(200,16,46,0.82);
+  --pink:  #FDE8EC;
+  --pink2: #FFF0F3;
 
-/* ─────────────────────────────────────────────
-   RESET & BASE
-───────────────────────────────────────────── */
-:root { --red:#C8102E; --pink:#FDE8EC; --dark:#1A1A1A; --gray:#666; }
+  /* Neutral */
+  --ink:   #111111;
+  --gray:  #6B7280;
+  --line:  #E5E7EB;
+  --bg:    #FAFAFA;
 
-.reveal {
-  font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
+  /* Spacing (8pt grid) */
+  --s1: 8px;
+  --s2: 16px;
+  --s3: 24px;
+  --s4: 32px;
+  --s5: 48px;
+  --s6: 64px;
+
+  /* Typography scale */
+  --t-display: 2.15em;  /* Big Japanese phrases */
+  --t-h1:      1.25em;  /* Slide main heading  */
+  --t-h2:      0.88em;  /* Sub-heading         */
+  --t-body:    0.52em;  /* Body text           */
+  --t-label:   0.38em;  /* Labels & captions   */
+  --t-micro:   0.30em;  /* Fine print          */
+
+  /* Radii */
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 20px;
+
+  /* Shadow */
+  --shadow: 0 2px 16px rgba(0,0,0,0.08);
 }
 
-/* Kill reveal.js heading overrides */
+/* ════════════════════════════════════════════
+   BASE RESET
+════════════════════════════════════════════ */
+.reveal {
+  font-family: 'Plus Jakarta Sans', 'Noto Sans JP', -apple-system, sans-serif;
+}
 .reveal h1, .reveal h2, .reveal h3, .reveal h4,
 .reveal p, .reveal ul, .reveal li, .reveal blockquote {
+  font-family: inherit;
   text-transform: none;
   letter-spacing: normal;
   margin: 0; padding: 0;
-  font-family: inherit;
-  line-height: 1.2;
-  word-wrap: break-word;
+  line-height: 1.25;
 }
-
-/* All sections: box-model reset, left-align default */
 .reveal .slides section {
-  padding: 44px 64px;
+  padding: var(--s5) var(--s6);
   box-sizing: border-box;
   text-align: left;
   height: 100%;
 }
 
-/* ─────────────────────────────────────────────
-   PHOTO SLIDES — full-bleed structure
-   (section has padding:0, one child fills it)
-───────────────────────────────────────────── */
+/* ════════════════════════════════════════════
+   PHOTO SLIDE — zero-padding base
+════════════════════════════════════════════ */
 .reveal .slides section.p0 {
   padding: 0;
   display: flex;
   flex-direction: column;
 }
 
-/* Dark overlay box (centered content on photo) */
-.pbox {
-  background: rgba(10,10,10,0.62);
-  padding: 44px 64px;
-  text-align: center;
-  width: 100%;
-  box-sizing: border-box;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.pbox.red  { background: rgba(200,16,46,0.86); }
-.pbox.lite { background: rgba(255,255,255,0.93); text-align: left; }
+/* ════════════════════════════════════════════
+   SHARED ATOMS
+════════════════════════════════════════════ */
 
-/* ─────────────────────────────────────────────
-   SHARED HELPERS
-───────────────────────────────────────────── */
-/* Red top bar */
+/* Top accent bar */
 .rbar {
   position: absolute; top: 0; left: 0; right: 0;
-  height: 6px; background: var(--red);
+  height: 5px; background: var(--red);
 }
 
-/* Slide label (red left-border tag) */
+/* Section label with red left-rule */
 .lbl {
-  font-size: 0.36em; font-weight: 700; color: var(--red);
-  border-left: 4px solid var(--red); padding-left: 10px;
-  margin-bottom: 0.65em; display: block;
-}
-.lbl-w {
-  font-size: 0.36em; font-weight: 700; color: rgba(255,255,255,0.85);
-  border-left: 4px solid rgba(255,255,255,0.6); padding-left: 10px;
-  margin-bottom: 0.65em; display: block;
+  font-size: var(--t-label);
+  font-weight: 700;
+  color: var(--red);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-left: 3px solid var(--red);
+  padding-left: 10px;
+  margin-bottom: var(--s3);
+  display: block;
 }
 
-/* ─────────────────────────────────────────────
-   CARD GRID
-───────────────────────────────────────────── */
+/* Pill badge */
+.badge {
+  display: inline-block;
+  font-size: var(--t-micro);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 4px 14px;
+  border-radius: 30px;
+}
+.badge-red   { background: var(--red);  color: #fff; }
+.badge-white { background: #fff; color: var(--red); }
+.badge-outline { background: rgba(255,255,255,0.15); color: #fff; border: 1.5px solid rgba(255,255,255,0.5); }
+
+/* Step number circle */
+.step-circle {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: var(--red);
+  color: #fff;
+  font-size: var(--t-label);
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Divider line */
+.hr { border: none; border-top: 1.5px solid var(--line); margin: var(--s3) 0; }
+
+/* ════════════════════════════════════════════
+   TYPOGRAPHY ATOMS
+════════════════════════════════════════════ */
+.jp     { font-size: var(--t-display); font-weight: 900; color: var(--ink); line-height: 1.05; display: block; font-family: 'Noto Sans JP', sans-serif; }
+.ro     { font-size: var(--t-body); color: var(--gray); margin-top: 10px; display: block; }
+.en     { font-size: var(--t-body); color: var(--ink); margin-top: 6px; display: block; font-weight: 500; }
+.note   { font-size: var(--t-label); color: var(--red); background: var(--pink); padding: 8px 16px; border-radius: var(--r-sm); display: inline-block; margin-top: var(--s3); font-weight: 600; }
+
+/* On dark backgrounds */
+.tw     { color: #fff !important; }
+.tw70   { color: rgba(255,255,255,0.72) !important; }
+.tw85   { color: rgba(255,255,255,0.88) !important; }
+
+/* ════════════════════════════════════════════
+   CARD GRID  (Pastel Geometry inspired)
+════════════════════════════════════════════ */
 .cards {
-  display: flex; gap: 18px;
-  margin-top: 0.5em;
+  display: flex;
+  gap: var(--s3);
+  margin-top: var(--s3);
 }
 .card {
-  background: var(--pink); border: 2px solid var(--red);
-  border-radius: 14px; padding: 20px 14px;
-  flex: 1; text-align: center;
+  background: #fff;
+  border: 1.5px solid var(--line);
+  border-radius: var(--r-md);
+  padding: var(--s3) var(--s2);
+  flex: 1;
+  text-align: center;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
 }
-.card-icon { font-size: 1.9em; display: block; margin-bottom: 0.2em; }
-.card-step { font-size: 0.38em; font-weight: 700; color: var(--red); margin-bottom: 0.1em; }
-.card-en   { font-size: 0.48em; font-weight: 700; color: var(--red); line-height: 1.3; }
-.card-jp   { font-size: 0.34em; color: var(--gray); margin-top: 0.2em; }
+/* Top accent strip on card */
+.card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 4px; background: var(--red);
+}
+.card-icon  { font-size: 1.8em; display: block; margin: var(--s2) 0 var(--s1); }
+.card-step  { font-size: var(--t-micro); font-weight: 700; color: var(--red); letter-spacing: 0.08em; text-transform: uppercase; }
+.card-title { font-size: var(--t-label); font-weight: 700; color: var(--ink); margin-top: var(--s1); line-height: 1.4; }
+.card-sub   { font-size: var(--t-micro); color: var(--gray); margin-top: 4px; }
 
-/* ─────────────────────────────────────────────
-   PHRASE SLIDES
-───────────────────────────────────────────── */
-.jp   { font-size: 2.1em; font-weight: 900; color: var(--dark); line-height: 1.0; display: block; }
-.ro   { font-size: 0.58em; color: var(--gray); margin-top: 0.15em; display: block; }
-.en   { font-size: 0.52em; color: var(--dark); margin-top: 0.15em; display: block; }
-.note { font-size: 0.4em; color: var(--red); background: var(--pink); padding: 8px 16px; border-radius: 8px; display: inline-block; margin-top: 0.8em; }
+/* Pink variant */
+.card.pink  { background: var(--pink2); border-color: rgba(200,16,46,0.2); }
 
-/* ─────────────────────────────────────────────
-   SITUATION GUESS SLIDES
-───────────────────────────────────────────── */
-.guess-q  { font-size: 0.7em; font-weight: 800; color: var(--dark); display: block; margin-bottom: 0.1em; }
-.guess-qj { font-size: 0.38em; color: var(--gray); display: block; margin-bottom: 0.5em; }
-.illus    { background: #fff; border: 2px solid var(--red); border-radius: 16px; display: inline-block; padding: 8px; }
+/* ════════════════════════════════════════════
+   PHRASE SLIDE
+════════════════════════════════════════════ */
+.phrase-wrap { margin-top: var(--s2); }
+.phrase-big  {
+  font-size: var(--t-display); font-weight: 900;
+  color: var(--ink); line-height: 1.0; display: block;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+.phrase-en-big {
+  font-size: 1.25em; font-weight: 900;
+  color: var(--red); line-height: 1.0; display: block;
+  margin-top: var(--s2);
+}
 
-/* ─────────────────────────────────────────────
-   ANSWER SLIDES
-───────────────────────────────────────────── */
-.ans-sit  { font-size: 0.5em; font-weight: 700; color: var(--dark); display: block; margin-bottom: 0.15em; }
-.ans-sitj { font-size: 0.36em; color: var(--gray); display: block; margin-bottom: 0.5em; }
-.ans-big  { font-size: 2.5em; font-weight: 900; color: var(--red); line-height: 1; display: block; }
-.ans-ro   { font-size: 0.55em; color: var(--gray); margin-top: 0.1em; display: block; }
-.ans-mean { font-size: 0.5em; color: var(--dark); margin-top: 0.45em; display: block; }
+/* ════════════════════════════════════════════
+   SITUATION GUESS  (SVG illustration slides)
+════════════════════════════════════════════ */
+.guess-q   { font-size: 0.68em; font-weight: 800; color: var(--ink); display: block; margin-bottom: 4px; }
+.guess-qj  { font-size: var(--t-label); color: var(--gray); display: block; margin-bottom: var(--s2); }
+.illus-box {
+  background: #fff;
+  border: 2px solid var(--line);
+  border-radius: var(--r-lg);
+  display: inline-block;
+  padding: var(--s1);
+  box-shadow: var(--shadow);
+}
 
-/* ─────────────────────────────────────────────
+/* ════════════════════════════════════════════
+   ANSWER SLIDE
+════════════════════════════════════════════ */
+.ans-sit  { font-size: 0.48em; font-weight: 700; color: var(--ink); display: block; margin-bottom: 4px; }
+.ans-sitj { font-size: var(--t-label); color: var(--gray); display: block; margin-bottom: var(--s3); }
+.ans-big  { font-size: 2.5em; font-weight: 900; color: var(--red); line-height: 1; display: block; font-family: 'Noto Sans JP', sans-serif; }
+.ans-ro   { font-size: var(--t-body); color: var(--gray); margin-top: 8px; display: block; }
+.ans-mean { font-size: 0.5em; color: var(--ink); margin-top: var(--s2); display: block; font-weight: 500; }
+
+/* ════════════════════════════════════════════
+   PHOTO SLIDE — content box variants
+════════════════════════════════════════════ */
+.pbox {
+  padding: var(--s5) var(--s6);
+  width: 100%; box-sizing: border-box;
+  flex: 1;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center;
+}
+.pbox-dark { background: rgba(0,0,0,0.60); }
+.pbox-red  { background: rgba(200,16,46,0.87); }
+.pbox-lite {
+  background: rgba(255,255,255,0.95);
+  text-align: left;
+  align-items: flex-start;
+}
+
+/* Photo content typography */
+.ph    { font-size: 1.05em; font-weight: 900; color: #fff; display: block; margin-bottom: var(--s1); }
+.psub  { font-size: var(--t-label); color: rgba(255,255,255,0.82); display: block; margin-bottom: var(--s2); font-family: 'Noto Sans JP', sans-serif; }
+.pbody { font-size: var(--t-label); color: rgba(255,255,255,0.92); display: block; line-height: 1.7; font-weight: 500; }
+.pcta  {
+  margin-top: var(--s3);
+  display: inline-block;
+  font-size: var(--t-label); font-weight: 700;
+  color: #fff;
+  border: 2px solid rgba(255,255,255,0.5);
+  padding: 9px 22px; border-radius: var(--r-sm);
+  background: rgba(255,255,255,0.15);
+}
+.pcta.solid { background: var(--red); border-color: var(--red); }
+
+/* ════════════════════════════════════════════
    ROLEPLAY SLIDES
-───────────────────────────────────────────── */
+════════════════════════════════════════════ */
 .rp-box {
-  background: #fff; border-radius: 10px;
-  padding: 14px 18px; margin-bottom: 12px; text-align: left;
+  background: #fff;
+  border-radius: var(--r-sm);
+  padding: var(--s2) var(--s3);
+  margin-bottom: var(--s2);
+  text-align: left;
+  box-shadow: var(--shadow);
 }
-.rp-box.t { border-left: 5px solid var(--red); }
-.rp-box.l { border-left: 5px solid #888; }
-.rp-who  { font-size: 0.34em; font-weight: 700; color: var(--red); margin-bottom: 4px; }
-.rp-line { font-size: 0.5em; font-weight: 700; color: var(--dark); }
-.rp-rom  { font-size: 0.3em; color: var(--gray); margin-top: 3px; }
-.rp-tip  { font-size: 0.36em; color: var(--red); font-weight: 700; margin-top: 0.4em; }
+.rp-box.t { border-left: 4px solid var(--red); }
+.rp-box.l { border-left: 4px solid #9CA3AF; }
+.rp-who  { font-size: var(--t-micro); font-weight: 700; color: var(--red); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+.rp-who.gray { color: var(--gray); }
+.rp-line { font-size: 0.52em; font-weight: 700; color: var(--ink); font-family: 'Noto Sans JP', sans-serif; }
+.rp-rom  { font-size: var(--t-micro); color: var(--gray); margin-top: 4px; }
+.rp-tip  { font-size: var(--t-label); color: var(--red); font-weight: 700; margin-top: var(--s2); padding-left: var(--s2); border-left: 3px solid var(--red); }
 
-/* ─────────────────────────────────────────────
+/* ════════════════════════════════════════════
    DIALOGUE SLIDE
-───────────────────────────────────────────── */
-.dbox { background: #fff; border-radius: 10px; padding: 12px 16px; margin-bottom: 10px; text-align: left; }
-.dbox.a { border-left: 5px solid var(--red); }
-.dbox.b { border-left: 5px solid #888; }
-.dbox.c { border-left: 5px solid #E6A817; }
-.dwho { font-size: 0.35em; font-weight: 700; color: var(--red); }
-.djp  { font-size: 0.52em; font-weight: 700; color: var(--dark); }
-.dro  { font-size: 0.3em; color: var(--gray); }
+════════════════════════════════════════════ */
+.dbox { background: #fff; border-radius: var(--r-sm); padding: 12px 18px; margin-bottom: 10px; box-shadow: var(--shadow); }
+.dbox.a { border-left: 4px solid var(--red); }
+.dbox.b { border-left: 4px solid #9CA3AF; }
+.dbox.c { border-left: 4px solid #F59E0B; }
+.dwho { font-size: var(--t-micro); font-weight: 700; color: var(--red); text-transform: uppercase; letter-spacing: 0.05em; }
+.djp  { font-size: 0.54em; font-weight: 700; color: var(--ink); font-family: 'Noto Sans JP', sans-serif; }
+.dro  { font-size: var(--t-micro); color: var(--gray); margin-top: 3px; }
 
-/* ─────────────────────────────────────────────
+/* ════════════════════════════════════════════
    TEACHER CARDS
-───────────────────────────────────────────── */
-.tgrid { display: flex; gap: 24px; margin-top: 0.4em; }
-.tcard { flex: 1; text-align: center; }
+════════════════════════════════════════════ */
+.tgrid { display: flex; gap: var(--s3); margin-top: var(--s3); }
+.tcard { flex: 1; }
 .tphoto {
-  background: var(--pink); border: 2px solid var(--red);
-  border-radius: 14px; height: 120px;
+  background: var(--pink2);
+  border: 1.5px solid rgba(200,16,46,0.25);
+  border-radius: var(--r-md);
+  height: 110px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 2.8em; margin-bottom: 10px;
+  font-size: 2.6em; margin-bottom: var(--s2);
 }
-.tname { font-size: 0.44em; font-weight: 700; color: var(--red); margin-bottom: 6px; display: block; }
-.tpts  { list-style: none; text-align: left; margin-top: 6px; }
-.tpts li { font-size: 0.32em; color: var(--dark); padding: 2px 0; }
-.tpts li::before { content: "• "; color: var(--red); }
+.tname { font-size: 0.46em; font-weight: 800; color: var(--ink); display: block; margin-bottom: var(--s1); }
+.tpts { list-style: none; }
+.tpts li { font-size: var(--t-micro); color: var(--gray); padding: 3px 0; font-weight: 500; }
+.tpts li::before { content: "— "; color: var(--red); font-weight: 700; }
 
-/* ─────────────────────────────────────────────
+/* ════════════════════════════════════════════
    CHEAT SHEET
-───────────────────────────────────────────── */
-.cheat { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 0.5em; }
-.citem { background: var(--pink); border: 1.5px solid var(--red); border-radius: 10px; padding: 10px 14px; }
-.citem:nth-child(even) { background: #fff; }
-.cnum { font-size: 0.28em; font-weight: 700; color: var(--red); }
-.cjp  { font-size: 0.5em; font-weight: 700; color: var(--dark); }
-.cro  { font-size: 0.3em; color: var(--gray); }
+════════════════════════════════════════════ */
+.cheat { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s2); margin-top: var(--s2); }
+.citem {
+  background: #fff; border: 1.5px solid var(--line);
+  border-radius: var(--r-sm); padding: 12px 16px;
+  box-shadow: var(--shadow);
+}
+.cnum { font-size: var(--t-micro); font-weight: 700; color: var(--red); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+.cjp  { font-size: 0.5em; font-weight: 900; color: var(--ink); font-family: 'Noto Sans JP', sans-serif; }
+.cro  { font-size: var(--t-micro); color: var(--gray); margin-top: 3px; font-weight: 500; }
 
-/* ─────────────────────────────────────────────
+/* ════════════════════════════════════════════
    PRICING
-───────────────────────────────────────────── */
-.pgrid { display: flex; gap: 24px; margin-top: 0.5em; }
-.pcard { border: 2px solid var(--red); border-radius: 16px; padding: 28px 20px; flex: 1; text-align: center; }
-.pcard.g { background: var(--pink); }
+════════════════════════════════════════════ */
+.pgrid { display: flex; gap: var(--s3); margin-top: var(--s3); }
+.pcard {
+  flex: 1; border-radius: var(--r-md);
+  padding: var(--s4) var(--s3);
+  text-align: center; border: 1.5px solid var(--line);
+  box-shadow: var(--shadow);
+  position: relative; overflow: hidden;
+}
+.pcard::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 5px; background: var(--red);
+}
+.pcard.g { background: var(--pink2); border-color: rgba(200,16,46,0.2); }
 .pcard.p { background: #fff; }
 .picon { font-size: 1.8em; }
-.ptype { font-size: 0.4em; font-weight: 700; color: var(--red); margin-top: 0.2em; display: block; }
-.pamt  { font-size: 1.8em; font-weight: 900; color: var(--dark); line-height: 1; display: block; margin: 0.2em 0 0; }
-.punit { font-size: 0.36em; color: var(--gray); }
-.pbadge{ background: var(--red); color: #fff; font-size: 0.32em; padding: 4px 12px; border-radius: 20px; display: inline-block; margin-top: 0.6em; }
+.ptype { font-size: var(--t-micro); font-weight: 700; color: var(--red); text-transform: uppercase; letter-spacing: 0.07em; margin-top: 8px; display: block; }
+.pamt  { font-size: 2.0em; font-weight: 900; color: var(--ink); line-height: 1; display: block; margin: 8px 0 4px; }
+.punit { font-size: var(--t-micro); color: var(--gray); font-weight: 500; }
+.pbadge { background: var(--red); color: #fff; font-size: var(--t-micro); padding: 4px 12px; border-radius: 30px; display: inline-block; margin-top: var(--s2); font-weight: 700; }
 
-/* ─────────────────────────────────────────────
-   WRAP / SUMMARY
-───────────────────────────────────────────── */
-.wgrid { display: flex; gap: 16px; margin-top: 0.6em; }
+/* ════════════════════════════════════════════
+   WRAP / SUMMARY GRID
+════════════════════════════════════════════ */
+.wgrid { display: flex; gap: var(--s2); margin-top: var(--s3); }
 .witem {
-  background: var(--pink); border: 2px solid var(--red);
-  border-radius: 14px; padding: 18px 14px; flex: 1; text-align: center;
+  background: #fff; border: 1.5px solid var(--line);
+  border-radius: var(--r-md); padding: var(--s3) var(--s2);
+  flex: 1; text-align: center; box-shadow: var(--shadow);
 }
-.wicon { font-size: 1.8em; display: block; margin-bottom: 0.2em; }
-.wjp   { font-size: 0.38em; font-weight: 700; color: var(--red); }
-.wen   { font-size: 0.3em; color: var(--gray); margin-top: 0.1em; }
-
-/* ─────────────────────────────────────────────
-   PHOTO SLIDE — TEXT STYLES
-───────────────────────────────────────────── */
-.pw-badge {
-  background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.5);
-  color: #fff; font-size: 0.36em; font-weight: 700;
-  padding: 5px 16px; border-radius: 20px;
-  display: inline-block; margin-bottom: 0.7em;
-}
-.pw-badge.solid { background: #fff; color: var(--red); border-color: #fff; }
-.pw-h { font-size: 0.95em; font-weight: 900; color: #fff; margin-bottom: 0.25em; display: block; }
-.pw-sub { font-size: 0.4em; color: rgba(255,255,255,0.82); margin-bottom: 0.4em; display: block; }
-.pw-body{ font-size: 0.44em; color: rgba(255,255,255,0.9); display: block; }
-.pw-cta {
-  font-size: 0.46em; font-weight: 700; color: #fff;
-  background: rgba(255,255,255,0.2); border: 2px solid rgba(255,255,255,0.5);
-  padding: 8px 22px; border-radius: 8px; display: inline-block; margin-top: 0.7em;
-}
-.pw-cta.red { background: var(--red); border-color: var(--red); }
+.wicon { font-size: 1.7em; display: block; margin-bottom: var(--s1); }
+.wjp   { font-size: var(--t-label); font-weight: 700; color: var(--ink); font-family: 'Noto Sans JP', sans-serif; }
+.wen   { font-size: var(--t-micro); color: var(--gray); margin-top: 4px; font-weight: 500; }
 
 </style>
 </head>
@@ -226,69 +359,69 @@
 <div class="reveal">
 <div class="slides">
 
-<!-- ══════════════════════════════════════════════
-     1. TITLE
-══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════
+     1 · TITLE
+══════════════════════════════════════════ -->
 <section class="p0"
   data-background-image="https://images.unsplash.com/photo-1747225205040-661ecf99d903?w=1280&q=80&fit=crop"
   data-background-size="cover"
   data-background-position="center">
-  <!-- Main content area -->
-  <div style="flex:1;padding:54px 80px;display:flex;flex-direction:column;justify-content:center;background:rgba(0,0,0,0.55);">
-    <div style="font-size:0.38em;color:rgba(255,255,255,0.9);font-weight:700;letter-spacing:0.06em;margin-bottom:0.7em;">
-      ⛩️ JAPANESE LEARNING SYDNEY
+  <div style="flex:1;padding:54px 80px;display:flex;flex-direction:column;justify-content:center;background:rgba(0,0,0,0.58);">
+    <div style="font-size:var(--t-micro);color:rgba(255,255,255,0.75);font-weight:700;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:var(--s3);">
+      ⛩️ Japanese Learning Sydney
     </div>
-    <div style="background:var(--red);color:#fff;font-size:0.4em;font-weight:700;padding:5px 16px;border-radius:30px;display:inline-block;margin-bottom:0.55em;width:fit-content;">
-      FREE 60-min Trial Lesson
-    </div>
-    <div style="font-size:2.4em;font-weight:900;color:#fff;line-height:1.0;text-shadow:0 2px 14px rgba(0,0,0,0.5);">
+    <div class="badge badge-red" style="margin-bottom:var(--s3);width:fit-content;">FREE 60-min Trial Lesson</div>
+    <div style="font-size:2.6em;font-weight:900;color:#fff;line-height:0.95;text-shadow:0 2px 20px rgba(0,0,0,0.4);font-family:'Plus Jakarta Sans',sans-serif;">
       Survival<br>Japanese
     </div>
-    <div style="font-size:0.56em;color:rgba(255,255,255,0.9);margin-top:0.35em;">Phrases you can use right away</div>
-    <div style="font-size:0.4em;color:rgba(255,255,255,0.7);margin-top:0.1em;">りょこうで すぐ つかえる にほんご</div>
+    <div style="font-size:0.58em;color:rgba(255,255,255,0.9);margin-top:var(--s3);font-weight:500;">
+      Phrases you can use right away
+    </div>
+    <div style="font-size:var(--t-label);color:rgba(255,255,255,0.65);margin-top:6px;font-family:'Noto Sans JP',sans-serif;">
+      りょこうで すぐ つかえる にほんご
+    </div>
   </div>
-  <!-- Tagline bar -->
-  <div style="background:var(--red);color:#fff;font-size:0.38em;padding:14px 80px;text-align:center;font-weight:600;letter-spacing:0.04em;flex-shrink:0;">
+  <div style="background:var(--red);color:#fff;font-size:var(--t-label);padding:14px 80px;text-align:center;font-weight:600;letter-spacing:0.05em;flex-shrink:0;">
     Learn Japanese &nbsp;·&nbsp; Build Confidence &nbsp;·&nbsp; Connect with Japan
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     2. WHO IS THIS FOR
-══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════
+     2 · WHO IS THIS FOR
+══════════════════════════════════════════ -->
 <section>
   <div class="rbar"></div>
-  <div style="font-size:0.38em;color:var(--red);font-weight:700;margin-bottom:0.3em;">こんなひとのためのレッスン</div>
-  <div style="font-size:1.05em;font-weight:800;color:var(--dark);margin-bottom:0.6em;">Who is this lesson for?</div>
-  <div class="cards">
-    <div class="card fragment">
+  <div style="font-size:var(--t-label);color:var(--red);font-weight:700;margin-bottom:6px;font-family:'Noto Sans JP';">こんなひとのためのレッスン</div>
+  <div style="font-size:var(--t-h1);font-weight:800;color:var(--ink);">Who is this lesson for?</div>
+  <div class="cards" style="margin-top:var(--s3);">
+    <div class="card pink fragment">
       <span class="card-icon">🧳</span>
-      <div class="card-en">Want to travel<br>to Japan</div>
-      <div class="card-jp">にほんを りょこうしたい</div>
+      <div class="card-title">Want to travel to Japan</div>
+      <div class="card-sub" style="font-family:'Noto Sans JP';">にほんを りょこうしたい</div>
     </div>
-    <div class="card fragment">
+    <div class="card pink fragment">
       <span class="card-icon">🏠</span>
-      <div class="card-en">Want to live or<br>work in Japan</div>
-      <div class="card-jp">にほんに すみたい・はたらきたい</div>
+      <div class="card-title">Want to live or work in Japan</div>
+      <div class="card-sub" style="font-family:'Noto Sans JP';">にほんに すみたい・はたらきたい</div>
     </div>
-    <div class="card fragment">
+    <div class="card pink fragment">
       <span class="card-icon">💛</span>
-      <div class="card-en">Love Japanese<br>culture & anime</div>
-      <div class="card-jp">にほんの ぶんかが すきな ひと</div>
+      <div class="card-title">Love Japanese culture</div>
+      <div class="card-sub" style="font-family:'Noto Sans JP';">にほんの ぶんかが すきな ひと</div>
     </div>
   </div>
-  <div style="font-size:0.38em;color:var(--gray);margin-top:0.9em;font-style:italic;">
+  <div style="font-size:var(--t-label);color:var(--gray);margin-top:var(--s3);font-style:italic;font-weight:500;">
     If Japan interests you even a little — this lesson is for you! 🎌
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     3. TEACHERS
-══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════
+     3 · TEACHERS
+══════════════════════════════════════════ -->
 <section>
   <div class="rbar"></div>
-  <div style="font-size:0.38em;color:var(--red);font-weight:700;margin-bottom:0.3em;">はじめまして！</div>
-  <div style="font-size:1.0em;font-weight:800;color:var(--dark);margin-bottom:0.4em;">Meet your teachers</div>
+  <div style="font-size:var(--t-label);color:var(--red);font-weight:700;margin-bottom:6px;font-family:'Noto Sans JP';">はじめまして！</div>
+  <div style="font-size:var(--t-h1);font-weight:800;color:var(--ink);">Meet your teachers</div>
   <div class="tgrid">
     <div class="tcard">
       <div class="tphoto">👩‍🏫</div>
@@ -309,373 +442,378 @@
       </ul>
     </div>
   </div>
-  <div style="background:var(--red);color:#fff;font-size:0.34em;padding:10px 20px;border-radius:8px;margin-top:18px;font-style:italic;">
-    "We don't just teach Japanese — we make it fun and real from day one."
+  <div style="background:var(--pink2);border-left:4px solid var(--red);padding:12px 20px;border-radius:0 var(--r-sm) var(--r-sm) 0;margin-top:var(--s3);">
+    <div style="font-size:var(--t-label);color:var(--ink);font-style:italic;font-weight:500;">
+      "We don't just teach Japanese — we make it fun and real from day one."
+    </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     4. TODAY'S JOURNEY
-══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════
+     4 · TODAY'S JOURNEY
+══════════════════════════════════════════ -->
 <section>
   <div class="rbar"></div>
-  <div style="font-size:0.38em;color:var(--red);font-weight:700;margin-bottom:0.3em;">きょうの ながれ</div>
-  <div style="font-size:1.0em;font-weight:800;color:var(--dark);margin-bottom:0.6em;">Today's journey — 3 steps</div>
-  <div class="cards">
-    <div class="card fragment">
-      <div class="card-step">STEP 1</div>
+  <div style="font-size:var(--t-label);color:var(--red);font-weight:700;margin-bottom:6px;font-family:'Noto Sans JP';">きょうの ながれ</div>
+  <div style="font-size:var(--t-h1);font-weight:800;color:var(--ink);">Today's journey — 3 steps</div>
+  <div class="cards" style="margin-top:var(--s3);">
+    <div class="card pink fragment">
+      <div class="card-step">Step 1</div>
       <span class="card-icon">🙋</span>
-      <div class="card-en">すみません</div>
-      <div class="card-jp">The magic word</div>
+      <div class="card-title" style="font-family:'Noto Sans JP';">すみません</div>
+      <div class="card-sub">The magic word</div>
     </div>
-    <div class="card fragment">
-      <div class="card-step">STEP 2</div>
+    <div class="card pink fragment">
+      <div class="card-step">Step 2</div>
       <span class="card-icon">🗺️</span>
-      <div class="card-en">みちを きく</div>
-      <div class="card-jp">Ask the way</div>
+      <div class="card-title" style="font-family:'Noto Sans JP';">みちを きく</div>
+      <div class="card-sub">Ask the way</div>
     </div>
-    <div class="card fragment">
-      <div class="card-step">STEP 3</div>
+    <div class="card pink fragment">
+      <div class="card-step">Step 3</div>
       <span class="card-icon">🤝</span>
-      <div class="card-en">ともだちを つくる</div>
-      <div class="card-jp">Make a friend</div>
+      <div class="card-title" style="font-family:'Noto Sans JP';">ともだちを つくる</div>
+      <div class="card-sub">Make a friend</div>
     </div>
   </div>
-  <div style="font-size:0.42em;color:var(--red);font-weight:700;margin-top:0.9em;">Let's go! 🎌</div>
+  <div style="font-size:var(--t-label);color:var(--red);font-weight:700;margin-top:var(--s3);">Let's go! 🎌</div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     5. STEP 1 DIVIDER
-══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════
+     5 · STEP 1 DIVIDER
+══════════════════════════════════════════ -->
 <section class="p0"
   data-background-image="https://images.unsplash.com/photo-1545099184-90e6299b0481?w=1280&q=80&fit=crop"
   data-background-size="cover">
-  <div class="pbox red" style="text-align:center;">
-    <div style="font-size:0.55em;font-weight:700;color:rgba(255,255,255,0.78);letter-spacing:0.12em;margin-bottom:0.3em;">STEP 1</div>
-    <div style="font-size:2.2em;font-weight:900;color:#fff;line-height:1;text-shadow:0 2px 10px rgba(0,0,0,0.3);">すみません</div>
-    <div style="font-size:0.65em;color:rgba(255,255,255,0.9);margin-top:0.4em;">The magic word</div>
+  <div class="pbox pbox-red" style="text-align:center;">
+    <div style="font-size:var(--t-label);font-weight:700;color:rgba(255,255,255,0.72);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:var(--s2);">Step 1</div>
+    <div style="font-size:2.3em;font-weight:900;color:#fff;line-height:1.0;font-family:'Noto Sans JP',sans-serif;text-shadow:0 2px 12px rgba(0,0,0,0.2);">すみません</div>
+    <div style="font-size:0.68em;color:rgba(255,255,255,0.9);margin-top:var(--s2);font-weight:600;">The magic word</div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     6. すみません INTRO
-══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════
+     6 · すみません INTRO
+══════════════════════════════════════════ -->
 <section>
   <div class="rbar"></div>
-  <div class="lbl">STEP 1 · The magic word</div>
+  <div class="lbl">Step 1 · The magic word</div>
   <span class="jp">すみません</span>
   <span class="ro">sumimasen</span>
-  <span class="en">Excuse me &nbsp;/&nbsp; Sorry &nbsp;/&nbsp; Thank you</span>
-  <span class="note">まほうの ことば — one word, three situations! ✨</span>
+  <div style="font-size:var(--t-body);color:var(--gray);margin-top:8px;font-weight:500;">Excuse me &nbsp;/&nbsp; Sorry &nbsp;/&nbsp; Thank you</div>
+  <div class="hr" style="margin-top:var(--s3);"></div>
+  <span class="note" style="font-family:'Noto Sans JP';">まほうの ことば — one word, three situations! ✨</span>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     7. 3 SITUATIONS OVERVIEW
-══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════
+     7 · 3 SITUATIONS OVERVIEW
+══════════════════════════════════════════ -->
 <section>
   <div class="rbar"></div>
-  <div style="font-size:0.38em;color:var(--red);font-weight:700;margin-bottom:0.5em;">「すみません」は 3つの ばめんで つかえます</div>
+  <div style="font-size:var(--t-label);font-weight:700;color:var(--red);margin-bottom:var(--s3);font-family:'Noto Sans JP';">「すみません」は 3つの ばめんで つかえます</div>
   <div class="cards">
-    <div class="card fragment">
+    <div class="card pink fragment">
       <span class="card-icon">🍽️</span>
       <div class="card-step">①</div>
-      <div class="card-en">Calling staff<br>in a restaurant</div>
+      <div class="card-title">Calling staff in a restaurant</div>
     </div>
-    <div class="card fragment">
+    <div class="card pink fragment">
       <span class="card-icon">🙇</span>
       <div class="card-step">②</div>
-      <div class="card-en">Saying sorry<br>to someone</div>
+      <div class="card-title">Saying sorry to someone</div>
     </div>
-    <div class="card fragment">
+    <div class="card pink fragment">
       <span class="card-icon">🚶</span>
       <div class="card-step">③</div>
-      <div class="card-en">Passing in front<br>of someone</div>
+      <div class="card-title">Passing in front of someone</div>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     8. SITUATION 1 — GUESS
-══════════════════════════════════════════════ -->
-<section style="background:#F8F8F8;">
-  <div class="lbl">STEP 1 · Situation ①</div>
+<!-- ══════════════════════════════════════════
+     8 · SITUATION 1 GUESS
+══════════════════════════════════════════ -->
+<section style="background:var(--bg);">
+  <div class="lbl">Step 1 · Situation ①</div>
   <span class="guess-q">What's happening here?</span>
-  <span class="guess-qj">どんな ばめんだと おもいますか？</span>
-  <div style="text-align:center;margin-top:6px;">
-    <div class="illus">
-      <svg width="560" height="220" viewBox="0 0 560 220" xmlns="http://www.w3.org/2000/svg">
-        <rect width="560" height="220" fill="#FFF9F0" rx="10"/>
-        <!-- Table top -->
-        <rect x="150" y="152" width="260" height="12" fill="#A0522D" rx="6"/>
-        <rect x="185" y="164" width="14" height="46" fill="#7B3811"/>
-        <rect x="361" y="164" width="14" height="46" fill="#7B3811"/>
+  <span class="guess-qj" style="font-family:'Noto Sans JP';">どんな ばめんだと おもいますか？</span>
+  <div style="text-align:center;">
+    <div class="illus-box">
+      <svg width="540" height="210" viewBox="0 0 540 210" xmlns="http://www.w3.org/2000/svg">
+        <rect width="540" height="210" fill="#FFF8F3" rx="10"/>
+        <!-- Table -->
+        <rect x="138" y="145" width="264" height="11" fill="#A0522D" rx="5"/>
+        <rect x="172" y="156" width="13" height="44" fill="#7B3811"/>
+        <rect x="355" y="156" width="13" height="44" fill="#7B3811"/>
         <!-- Plate + food -->
-        <ellipse cx="240" cy="149" rx="28" ry="9" fill="#E8D5B0" stroke="#C4A35A" stroke-width="1.5"/>
-        <circle cx="240" cy="143" r="16" fill="#F4A460"/>
-        <ellipse cx="305" cy="149" rx="22" ry="8" fill="#E8D5B0" stroke="#C4A35A" stroke-width="1.5"/>
-        <rect x="296" y="133" width="18" height="16" fill="#E74C3C" rx="3"/>
-        <!-- Chopsticks -->
-        <line x1="338" y1="138" x2="356" y2="162" stroke="#7B3811" stroke-width="3" stroke-linecap="round"/>
-        <line x1="344" y1="138" x2="362" y2="162" stroke="#7B3811" stroke-width="3" stroke-linecap="round"/>
-        <!-- Person: head -->
-        <circle cx="255" cy="82" r="24" fill="#FDBCB4"/>
-        <ellipse cx="255" cy="67" rx="24" ry="13" fill="#2C1810"/>
+        <ellipse cx="228" cy="141" rx="26" ry="8" fill="#E8D5B0" stroke="#C4A35A" stroke-width="1.5"/>
+        <circle cx="228" cy="135" r="15" fill="#F4A460"/>
+        <ellipse cx="290" cy="141" rx="21" ry="7" fill="#E8D5B0" stroke="#C4A35A" stroke-width="1.5"/>
+        <rect x="281" y="126" width="17" height="15" fill="#E74C3C" rx="3"/>
+        <line x1="320" y1="130" x2="337" y2="152" stroke="#7B3811" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="326" y1="130" x2="343" y2="152" stroke="#7B3811" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- Person head -->
+        <circle cx="242" cy="74" r="22" fill="#FDBCB4"/>
+        <ellipse cx="242" cy="60" rx="22" ry="12" fill="#2C1810"/>
         <!-- Body -->
-        <rect x="240" y="106" width="30" height="46" fill="#3498DB" rx="9"/>
-        <!-- Left arm (relaxed) -->
-        <line x1="240" y1="115" x2="218" y2="143" stroke="#FDBCB4" stroke-width="9" stroke-linecap="round"/>
+        <rect x="228" y="96" width="28" height="48" fill="#3498DB" rx="8"/>
+        <!-- Left arm -->
+        <line x1="228" y1="105" x2="207" y2="131" stroke="#FDBCB4" stroke-width="8" stroke-linecap="round"/>
         <!-- Right arm RAISED -->
-        <line x1="270" y1="110" x2="310" y2="60" stroke="#FDBCB4" stroke-width="9" stroke-linecap="round"/>
-        <circle cx="312" cy="57" r="9" fill="#FDBCB4"/>
-        <!-- Chair back -->
-        <rect x="233" y="148" width="44" height="7" fill="#CD853F" rx="3"/>
+        <line x1="256" y1="100" x2="294" y2="54" stroke="#FDBCB4" stroke-width="8" stroke-linecap="round"/>
+        <circle cx="296" cy="51" r="8" fill="#FDBCB4"/>
         <!-- Speech bubble -->
-        <rect x="318" y="32" width="200" height="58" fill="#FDE8EC" stroke="#C8102E" stroke-width="2" rx="14"/>
-        <polygon points="324,78 308,92 336,78" fill="#FDE8EC" stroke="#C8102E" stroke-width="2"/>
-        <text x="418" y="57" text-anchor="middle" font-size="17" fill="#C8102E" font-weight="bold" font-family="Hiragino Kaku Gothic ProN, Yu Gothic, sans-serif">すみません！</text>
-        <text x="418" y="78" text-anchor="middle" font-size="12" fill="#888" font-family="Arial, sans-serif">Excuse me!</text>
+        <rect x="306" y="26" width="190" height="54" fill="#FDE8EC" stroke="#C8102E" stroke-width="2" rx="12"/>
+        <polygon points="311,68 297,82 323,68" fill="#FDE8EC" stroke="#C8102E" stroke-width="2"/>
+        <text x="401" y="50" text-anchor="middle" font-size="16" fill="#C8102E" font-weight="bold" font-family="Noto Sans JP, sans-serif">すみません！</text>
+        <text x="401" y="70" text-anchor="middle" font-size="11" fill="#999" font-family="Plus Jakarta Sans, sans-serif">Excuse me!</text>
         <!-- Waiter -->
-        <circle cx="92" cy="82" r="20" fill="#555"/>
-        <rect x="79" y="102" width="26" height="44" fill="#2C2C2C" rx="7"/>
-        <ellipse cx="72" cy="95" rx="20" ry="5" fill="#888"/>
-        <rect x="79" y="82" width="6" height="14" fill="#888"/>
+        <circle cx="82" cy="74" r="19" fill="#555"/>
+        <rect x="70" y="93" width="24" height="40" fill="#333" rx="6"/>
+        <ellipse cx="63" cy="86" rx="18" ry="5" fill="#888"/>
+        <rect x="68" y="74" width="5" height="13" fill="#888"/>
       </svg>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     9. SITUATION 1 — ANSWER
-══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════
+     9 · SITUATION 1 ANSWER
+══════════════════════════════════════════ -->
 <section>
   <div class="rbar"></div>
-  <div class="lbl">STEP 1 · Situation ① — Answer</div>
+  <div class="lbl">Step 1 · Situation ① — Answer</div>
   <span class="ans-sit">🍽️ Calling staff in a restaurant</span>
-  <span class="ans-sitj">おみせの ひとを よぶ とき</span>
+  <span class="ans-sitj" style="font-family:'Noto Sans JP';">おみせの ひとを よぶ とき</span>
   <span class="ans-big">すみません！</span>
   <span class="ans-ro">sumimasen!</span>
   <span class="ans-mean">"Excuse me!" — raise your hand and say this 🙋</span>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     10. SITUATION 2 — GUESS
-══════════════════════════════════════════════ -->
-<section style="background:#F0F4FF;">
-  <div class="lbl">STEP 1 · Situation ②</div>
+<!-- ══════════════════════════════════════════
+     10 · SITUATION 2 GUESS
+══════════════════════════════════════════ -->
+<section style="background:var(--bg);">
+  <div class="lbl">Step 1 · Situation ②</div>
   <span class="guess-q">What's happening here?</span>
-  <span class="guess-qj">どんな ばめんだと おもいますか？</span>
-  <div style="text-align:center;margin-top:6px;">
-    <div class="illus">
-      <svg width="560" height="220" viewBox="0 0 560 220" xmlns="http://www.w3.org/2000/svg">
-        <rect width="560" height="220" fill="#F0F4FF" rx="10"/>
-        <!-- Impact starburst -->
-        <line x1="280" y1="75" x2="258" y2="46" stroke="#FFD700" stroke-width="3.5" stroke-linecap="round"/>
-        <line x1="280" y1="75" x2="302" y2="46" stroke="#FFD700" stroke-width="3.5" stroke-linecap="round"/>
-        <line x1="280" y1="75" x2="280" y2="40" stroke="#FFD700" stroke-width="3.5" stroke-linecap="round"/>
-        <line x1="280" y1="75" x2="250" y2="60" stroke="#FFD700" stroke-width="3" stroke-linecap="round"/>
-        <line x1="280" y1="75" x2="310" y2="60" stroke="#FFD700" stroke-width="3" stroke-linecap="round"/>
-        <text x="280" y="45" text-anchor="middle" font-size="22" fill="#E74C3C" font-weight="900" font-family="Arial Black, sans-serif">BAM!</text>
+  <span class="guess-qj" style="font-family:'Noto Sans JP';">どんな ばめんだと おもいますか？</span>
+  <div style="text-align:center;">
+    <div class="illus-box">
+      <svg width="540" height="210" viewBox="0 0 540 210" xmlns="http://www.w3.org/2000/svg">
+        <rect width="540" height="210" fill="#EEF2FF" rx="10"/>
+        <!-- Starburst -->
+        <line x1="270" y1="72" x2="248" y2="43" stroke="#FCD34D" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="270" y1="72" x2="292" y2="43" stroke="#FCD34D" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="270" y1="72" x2="270" y2="37" stroke="#FCD34D" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="270" y1="72" x2="240" y2="57" stroke="#FCD34D" stroke-width="3" stroke-linecap="round"/>
+        <line x1="270" y1="72" x2="300" y2="57" stroke="#FCD34D" stroke-width="3" stroke-linecap="round"/>
+        <text x="270" y="42" text-anchor="middle" font-size="20" fill="#EF4444" font-weight="900" font-family="Plus Jakarta Sans, sans-serif">BAM!</text>
         <!-- Person A -->
-        <circle cx="172" cy="86" r="22" fill="#FDBCB4"/>
-        <ellipse cx="172" cy="72" rx="22" ry="12" fill="#8B4513"/>
-        <rect x="158" y="108" width="28" height="40" fill="#E74C3C" rx="8"/>
-        <circle cx="164" cy="84" r="3.5" fill="#333"/>
-        <circle cx="180" cy="84" r="3.5" fill="#333"/>
-        <ellipse cx="172" cy="96" rx="5" ry="3" fill="#FF6B6B"/>
-        <line x1="158" y1="115" x2="132" y2="97" stroke="#FDBCB4" stroke-width="9" stroke-linecap="round"/>
-        <line x1="186" y1="115" x2="202" y2="95" stroke="#FDBCB4" stroke-width="9" stroke-linecap="round"/>
-        <line x1="165" y1="148" x2="152" y2="182" stroke="#444" stroke-width="9" stroke-linecap="round"/>
-        <line x1="179" y1="148" x2="192" y2="182" stroke="#444" stroke-width="9" stroke-linecap="round"/>
+        <circle cx="165" cy="82" r="21" fill="#FDBCB4"/>
+        <ellipse cx="165" cy="69" rx="21" ry="11" fill="#8B4513"/>
+        <rect x="152" y="103" width="26" height="38" fill="#E74C3C" rx="7"/>
+        <circle cx="157" cy="80" r="3.5" fill="#333"/>
+        <circle cx="173" cy="80" r="3.5" fill="#333"/>
+        <ellipse cx="165" cy="92" rx="4.5" ry="3" fill="#FF6B6B"/>
+        <line x1="152" y1="110" x2="126" y2="93" stroke="#FDBCB4" stroke-width="8" stroke-linecap="round"/>
+        <line x1="178" y1="110" x2="194" y2="91" stroke="#FDBCB4" stroke-width="8" stroke-linecap="round"/>
+        <line x1="158" y1="141" x2="145" y2="174" stroke="#444" stroke-width="8" stroke-linecap="round"/>
+        <line x1="172" y1="141" x2="185" y2="174" stroke="#444" stroke-width="8" stroke-linecap="round"/>
         <!-- Person B -->
-        <circle cx="388" cy="86" r="22" fill="#FDBCB4"/>
-        <ellipse cx="388" cy="72" rx="22" ry="12" fill="#2C1810"/>
-        <rect x="374" y="108" width="28" height="40" fill="#3498DB" rx="8"/>
-        <circle cx="380" cy="84" r="3.5" fill="#333"/>
-        <circle cx="396" cy="84" r="3.5" fill="#333"/>
-        <ellipse cx="388" cy="96" rx="5" ry="3" fill="#FF6B6B"/>
-        <line x1="374" y1="115" x2="356" y2="95" stroke="#FDBCB4" stroke-width="9" stroke-linecap="round"/>
-        <line x1="402" y1="115" x2="428" y2="97" stroke="#FDBCB4" stroke-width="9" stroke-linecap="round"/>
-        <line x1="381" y1="148" x2="368" y2="182" stroke="#444" stroke-width="9" stroke-linecap="round"/>
-        <line x1="395" y1="148" x2="408" y2="182" stroke="#444" stroke-width="9" stroke-linecap="round"/>
-        <!-- Spilled bag -->
-        <rect x="236" y="168" width="30" height="34" fill="#F39C12" rx="5"/>
-        <path d="M241 168 Q248 156 256 168" stroke="#E67E22" stroke-width="2" fill="none"/>
-        <circle cx="284" cy="192" r="7" fill="#E74C3C"/>
-        <rect x="300" y="178" width="20" height="9" fill="#27AE60" rx="3"/>
+        <circle cx="375" cy="82" r="21" fill="#FDBCB4"/>
+        <ellipse cx="375" cy="69" rx="21" ry="11" fill="#2C1810"/>
+        <rect x="362" y="103" width="26" height="38" fill="#3B82F6" rx="7"/>
+        <circle cx="367" cy="80" r="3.5" fill="#333"/>
+        <circle cx="383" cy="80" r="3.5" fill="#333"/>
+        <ellipse cx="375" cy="92" rx="4.5" ry="3" fill="#FF6B6B"/>
+        <line x1="362" y1="110" x2="344" y2="91" stroke="#FDBCB4" stroke-width="8" stroke-linecap="round"/>
+        <line x1="388" y1="110" x2="414" y2="93" stroke="#FDBCB4" stroke-width="8" stroke-linecap="round"/>
+        <line x1="368" y1="141" x2="355" y2="174" stroke="#444" stroke-width="8" stroke-linecap="round"/>
+        <line x1="382" y1="141" x2="395" y2="174" stroke="#444" stroke-width="8" stroke-linecap="round"/>
+        <!-- Bag -->
+        <rect x="230" y="160" width="28" height="32" fill="#F59E0B" rx="4"/>
+        <path d="M235 160 Q241 149 248 160" stroke="#D97706" stroke-width="2" fill="none"/>
+        <circle cx="272" cy="184" r="7" fill="#EF4444"/>
+        <rect x="288" y="170" width="19" height="8" fill="#10B981" rx="2"/>
       </svg>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     11. SITUATION 2 — ANSWER
-══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════
+     11 · SITUATION 2 ANSWER
+══════════════════════════════════════════ -->
 <section>
   <div class="rbar"></div>
-  <div class="lbl">STEP 1 · Situation ② — Answer</div>
+  <div class="lbl">Step 1 · Situation ② — Answer</div>
   <span class="ans-sit">🙇 Bumped into someone — saying sorry</span>
-  <span class="ans-sitj">あやまる とき</span>
+  <span class="ans-sitj" style="font-family:'Noto Sans JP';">あやまる とき</span>
   <span class="ans-big">すみません！</span>
   <span class="ans-ro">sumimasen!</span>
   <span class="ans-mean">"Sorry!" — a quick bow makes it even better 🙏</span>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     12. SITUATION 3 — GUESS
-══════════════════════════════════════════════ -->
-<section style="background:#F5FFF5;">
-  <div class="lbl">STEP 1 · Situation ③</div>
+<!-- ══════════════════════════════════════════
+     12 · SITUATION 3 GUESS
+══════════════════════════════════════════ -->
+<section style="background:var(--bg);">
+  <div class="lbl">Step 1 · Situation ③</div>
   <span class="guess-q">What's happening here?</span>
-  <span class="guess-qj">どんな ばめんだと おもいますか？</span>
-  <div style="text-align:center;margin-top:6px;">
-    <div class="illus">
-      <svg width="560" height="220" viewBox="0 0 560 220" xmlns="http://www.w3.org/2000/svg">
-        <rect width="560" height="220" fill="#F5FFF5" rx="10"/>
-        <!-- Floor -->
-        <line x1="40" y1="195" x2="520" y2="195" stroke="#DDD" stroke-width="2"/>
-        <!-- Walking direction arrow -->
-        <path d="M230 195 L340 195" stroke="#C8102E" stroke-width="2.5" stroke-dasharray="7,5"/>
-        <polygon points="346,195 332,188 332,202" fill="#C8102E"/>
-        <!-- Person B (standing, being passed) -->
-        <circle cx="420" cy="90" r="22" fill="#FDBCB4"/>
-        <ellipse cx="420" cy="76" rx="22" ry="12" fill="#2C1810"/>
-        <rect x="407" y="112" width="26" height="44" fill="#9B59B6" rx="8"/>
-        <circle cx="412" cy="88" r="3.5" fill="#333"/>
-        <circle cx="428" cy="88" r="3.5" fill="#333"/>
-        <path d="M414 100 Q420 106 426 100" stroke="#333" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <line x1="412" y1="156" x2="400" y2="190" stroke="#555" stroke-width="9" stroke-linecap="round"/>
-        <line x1="426" y1="156" x2="438" y2="190" stroke="#555" stroke-width="9" stroke-linecap="round"/>
+  <span class="guess-qj" style="font-family:'Noto Sans JP';">どんな ばめんだと おもいますか？</span>
+  <div style="text-align:center;">
+    <div class="illus-box">
+      <svg width="540" height="210" viewBox="0 0 540 210" xmlns="http://www.w3.org/2000/svg">
+        <rect width="540" height="210" fill="#F0FDF4" rx="10"/>
+        <line x1="40" y1="192" x2="500" y2="192" stroke="#D1FAE5" stroke-width="2"/>
+        <!-- Walking arrow -->
+        <path d="M220 192 L330 192" stroke="#C8102E" stroke-width="2.5" stroke-dasharray="7,5"/>
+        <polygon points="336,192 322,186 322,198" fill="#C8102E"/>
+        <!-- Person B (standing) -->
+        <circle cx="404" cy="84" r="21" fill="#FDBCB4"/>
+        <ellipse cx="404" cy="71" rx="21" ry="11" fill="#1E3A5F"/>
+        <rect x="391" y="105" width="26" height="42" fill="#7C3AED" rx="7"/>
+        <circle cx="396" cy="82" r="3.5" fill="#333"/>
+        <circle cx="412" cy="82" r="3.5" fill="#333"/>
+        <path d="M398 94 Q404 100 410 94" stroke="#333" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <line x1="396" y1="147" x2="384" y2="182" stroke="#555" stroke-width="8" stroke-linecap="round"/>
+        <line x1="410" y1="147" x2="422" y2="182" stroke="#555" stroke-width="8" stroke-linecap="round"/>
         <!-- Person A (bowing while walking) -->
-        <g transform="translate(178,75) rotate(-25,22,42)">
-          <circle cx="22" cy="8" r="22" fill="#FDBCB4"/>
-          <ellipse cx="22" cy="-5" rx="22" ry="12" fill="#C8102E"/>
-          <rect x="9" y="30" width="26" height="42" fill="#E74C3C" rx="8"/>
-          <line x1="9" y1="38" x2="-14" y2="54" stroke="#FDBCB4" stroke-width="8" stroke-linecap="round"/>
-          <line x1="35" y1="38" x2="54" y2="54" stroke="#FDBCB4" stroke-width="8" stroke-linecap="round"/>
+        <g transform="translate(170,70) rotate(-26,22,44)">
+          <circle cx="22" cy="7" r="21" fill="#FDBCB4"/>
+          <ellipse cx="22" cy="-6" rx="21" ry="11" fill="#C8102E"/>
+          <rect x="9" y="28" width="26" height="42" fill="#EF4444" rx="7"/>
+          <line x1="9" y1="37" x2="-13" y2="52" stroke="#FDBCB4" stroke-width="8" stroke-linecap="round"/>
+          <line x1="35" y1="37" x2="54" y2="52" stroke="#FDBCB4" stroke-width="8" stroke-linecap="round"/>
         </g>
-        <line x1="192" y1="178" x2="176" y2="210" stroke="#444" stroke-width="9" stroke-linecap="round"/>
-        <line x1="205" y1="176" x2="222" y2="208" stroke="#444" stroke-width="9" stroke-linecap="round"/>
+        <line x1="185" y1="174" x2="170" y2="204" stroke="#444" stroke-width="8" stroke-linecap="round"/>
+        <line x1="198" y1="172" x2="214" y2="202" stroke="#444" stroke-width="8" stroke-linecap="round"/>
         <!-- Speech bubble -->
-        <rect x="44" y="38" width="152" height="56" fill="#FDE8EC" stroke="#C8102E" stroke-width="2" rx="14"/>
-        <polygon points="152,94 166,110 172,94" fill="#FDE8EC" stroke="#C8102E" stroke-width="2"/>
-        <text x="120" y="62" text-anchor="middle" font-size="15" fill="#C8102E" font-weight="bold" font-family="Hiragino Kaku Gothic ProN, Yu Gothic, sans-serif">すみません</text>
-        <text x="120" y="84" text-anchor="middle" font-size="11" fill="#888" font-family="Arial, sans-serif">Excuse me...</text>
+        <rect x="42" y="34" width="152" height="54" fill="#FDE8EC" stroke="#C8102E" stroke-width="2" rx="12"/>
+        <polygon points="149,88 164,104 170,88" fill="#FDE8EC" stroke="#C8102E" stroke-width="2"/>
+        <text x="118" y="58" text-anchor="middle" font-size="15" fill="#C8102E" font-weight="bold" font-family="Noto Sans JP, sans-serif">すみません</text>
+        <text x="118" y="78" text-anchor="middle" font-size="11" fill="#999" font-family="Plus Jakarta Sans, sans-serif">Excuse me...</text>
       </svg>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     13. SITUATION 3 — ANSWER
-══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════
+     13 · SITUATION 3 ANSWER
+══════════════════════════════════════════ -->
 <section>
   <div class="rbar"></div>
-  <div class="lbl">STEP 1 · Situation ③ — Answer</div>
+  <div class="lbl">Step 1 · Situation ③ — Answer</div>
   <span class="ans-sit">🚶 Passing in front of someone</span>
-  <span class="ans-sitj">ひとの まえを とおる とき</span>
+  <span class="ans-sitj" style="font-family:'Noto Sans JP';">ひとの まえを とおる とき</span>
   <span class="ans-big">すみません</span>
   <span class="ans-ro">sumimasen</span>
   <span class="ans-mean">"Excuse me" — a small bow as you pass</span>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     14. SAY IT 3 TIMES
-══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════
+     14 · SAY IT 3 TIMES
+══════════════════════════════════════════ -->
 <section data-background-color="#C8102E" style="text-align:center;">
-  <div style="font-size:0.55em;color:rgba(255,255,255,0.85);margin-bottom:0.4em;">Now say it 3 times! 🎤</div>
-  <div style="font-size:1.7em;font-weight:900;color:#fff;line-height:1.6;">
+  <div style="font-size:0.52em;color:rgba(255,255,255,0.8);margin-bottom:var(--s3);font-weight:600;letter-spacing:0.06em;text-transform:uppercase;">Now say it 3 times! 🎤</div>
+  <div style="font-size:1.8em;font-weight:900;color:#fff;line-height:1.65;font-family:'Noto Sans JP',sans-serif;">
     すみません<br>すみません<br>すみません
   </div>
-  <div style="font-size:0.42em;color:rgba(255,255,255,0.8);margin-top:0.5em;">sumimasen · sumimasen · sumimasen</div>
+  <div style="font-size:0.42em;color:rgba(255,255,255,0.72);margin-top:var(--s3);">sumimasen · sumimasen · sumimasen</div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     15. STEP 2 DIVIDER
-══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════
+     15 · STEP 2 DIVIDER
+══════════════════════════════════════════ -->
 <section class="p0"
   data-background-image="https://images.unsplash.com/photo-1545099184-90e6299b0481?w=1280&q=80&fit=crop"
   data-background-size="cover">
-  <div class="pbox" style="text-align:center;">
-    <div style="font-size:0.55em;font-weight:700;color:rgba(255,255,255,0.78);letter-spacing:0.12em;margin-bottom:0.3em;">STEP 2</div>
-    <div style="font-size:2.2em;font-weight:900;color:#fff;line-height:1.0;text-shadow:0 2px 10px rgba(0,0,0,0.4);">みちを きく</div>
-    <div style="font-size:0.65em;color:rgba(255,255,255,0.9);margin-top:0.4em;">Asking the way</div>
+  <div class="pbox pbox-dark" style="text-align:center;">
+    <div style="font-size:var(--t-label);font-weight:700;color:rgba(255,255,255,0.72);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:var(--s2);">Step 2</div>
+    <div style="font-size:2.3em;font-weight:900;color:#fff;line-height:1.05;font-family:'Noto Sans JP',sans-serif;text-shadow:0 2px 12px rgba(0,0,0,0.3);">みちを きく</div>
+    <div style="font-size:0.68em;color:rgba(255,255,255,0.9);margin-top:var(--s2);font-weight:600;">Asking the way</div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     16. PATTERN
-══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════
+     16 · PATTERN
+══════════════════════════════════════════ -->
 <section>
   <div class="rbar"></div>
-  <div class="lbl">STEP 2 · The pattern</div>
+  <div class="lbl">Step 2 · The pattern</div>
   <span class="jp">〜は どこですか？</span>
   <span class="ro">~ wa doko desu ka?</span>
-  <span class="en">"Where is ~ ?"</span>
-  <span class="note">「〜」に ことばを いれよう — just fill in the blank! ✨</span>
+  <div style="font-size:var(--t-body);color:var(--ink);margin-top:8px;font-weight:500;">"Where is ~ ?"</div>
+  <div class="hr"></div>
+  <span class="note" style="font-family:'Noto Sans JP';">「〜」に ことばを いれよう — just fill in the blank! ✨</span>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     17. えき
-══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════
+     17 · えき
+══════════════════════════════════════════ -->
 <section>
   <div class="rbar"></div>
-  <div class="lbl">STEP 2 · Word ①</div>
-  <div style="font-size:2em;margin-bottom:0.1em;">🚉</div>
+  <div class="lbl">Step 2 · Word ①</div>
+  <div style="font-size:1.8em;margin-bottom:var(--s2);">🚉</div>
   <span class="jp">えき</span>
   <span class="ro">eki — station</span>
-  <div style="font-size:1.0em;font-weight:900;color:var(--red);margin-top:0.5em;">えき は どこですか？</div>
-  <span class="en" style="margin-top:0.1em;">eki wa doko desu ka? — "Where is the station?"</span>
+  <div style="margin-top:var(--s3);padding:var(--s2) var(--s3);background:var(--pink2);border-radius:var(--r-sm);border-left:4px solid var(--red);">
+    <div style="font-size:0.95em;font-weight:900;color:var(--red);font-family:'Noto Sans JP',sans-serif;">えき は どこですか？</div>
+    <div style="font-size:var(--t-label);color:var(--gray);margin-top:6px;font-weight:500;">eki wa doko desu ka? — "Where is the station?"</div>
+  </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     18. トイレ
-══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════
+     18 · トイレ
+══════════════════════════════════════════ -->
 <section>
   <div class="rbar"></div>
-  <div class="lbl">STEP 2 · Word ②</div>
-  <div style="font-size:2em;margin-bottom:0.1em;">🚻</div>
+  <div class="lbl">Step 2 · Word ②</div>
+  <div style="font-size:1.8em;margin-bottom:var(--s2);">🚻</div>
   <span class="jp">トイレ</span>
-  <span class="ro">toire — restroom / toilet</span>
-  <div style="font-size:1.0em;font-weight:900;color:var(--red);margin-top:0.5em;">トイレ は どこですか？</div>
-  <span class="en" style="margin-top:0.1em;">toire wa doko desu ka? — "Where is the restroom?"</span>
+  <span class="ro">toire — restroom</span>
+  <div style="margin-top:var(--s3);padding:var(--s2) var(--s3);background:var(--pink2);border-radius:var(--r-sm);border-left:4px solid var(--red);">
+    <div style="font-size:0.95em;font-weight:900;color:var(--red);font-family:'Noto Sans JP',sans-serif;">トイレ は どこですか？</div>
+    <div style="font-size:var(--t-label);color:var(--gray);margin-top:6px;font-weight:500;">toire wa doko desu ka? — "Where is the restroom?"</div>
+  </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     19. REAL JAPAN TIP
-══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════
+     19 · REAL JAPAN TIP
+══════════════════════════════════════════ -->
 <section class="p0"
   data-background-image="https://images.unsplash.com/photo-1572291244855-44aa55da2137?w=1280&q=80&fit=crop"
   data-background-size="cover">
-  <div class="pbox" style="text-align:center;">
-    <div class="pw-badge solid">🇯🇵 Real Japan Tip</div>
-    <span class="pw-h">Ask — they may walk you all the way there! 🚶‍♀️</span>
-    <span class="pw-sub">ばしょまで つれて いって くれる ひとも！</span>
-    <span class="pw-body">Japanese people are known for going out of their way to help strangers.</span>
-    <div class="pw-cta">Don't be shy — just say すみません！ 😊</div>
+  <div class="pbox pbox-dark" style="text-align:center;">
+    <div class="badge badge-white" style="margin-bottom:var(--s3);">🇯🇵 Real Japan Tip</div>
+    <span class="ph">Ask — they may walk you all the way there! 🚶‍♀️</span>
+    <span class="psub">ばしょまで つれて いって くれる ひとも！</span>
+    <span class="pbody">Japanese people are known for going out of their way to help strangers.</span>
+    <div class="pcta">Don't be shy — just say すみません！ 😊</div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     20. ありがとう
-══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════
+     20 · ありがとう
+══════════════════════════════════════════ -->
 <section>
   <div class="rbar"></div>
-  <div class="lbl">STEP 2 · Thank them!</div>
-  <div style="font-size:2em;margin-bottom:0.1em;">🙏</div>
+  <div class="lbl">Step 2 · Thank them!</div>
+  <div style="font-size:1.8em;margin-bottom:var(--s2);">🙏</div>
   <span class="jp">ありがとう</span>
   <span class="ro">arigatou</span>
-  <span class="en">Thank you</span>
-  <span class="note">ついて いって、さいごに ひとこと！ — follow them, then say this!</span>
+  <div style="font-size:var(--t-body);color:var(--ink);margin-top:8px;font-weight:500;">Thank you</div>
+  <div class="hr"></div>
+  <span class="note" style="font-family:'Noto Sans JP';">ついて いって、さいごに ひとこと！ — follow them, then say this!</span>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     21. ROLE PLAY 1 SETUP
-══════════════════════════════════════════════ -->
-<section style="background:var(--pink);">
-  <div style="font-size:0.55em;font-weight:700;color:var(--red);margin-bottom:0.25em;">🎭 Role Play 1 — Find the station! 🚉</div>
-  <div style="font-size:0.36em;color:var(--gray);margin-bottom:0.7em;">えきを さがそう · Practice in pairs · ⏱ 3 minutes</div>
-  <div style="font-size:0.38em;font-weight:700;color:var(--red);margin-bottom:8px;">How to do it:</div>
-  <div style="font-size:0.36em;color:var(--dark);line-height:2.2;">
+<!-- ══════════════════════════════════════════
+     21 · ROLE PLAY 1 SETUP
+══════════════════════════════════════════ -->
+<section style="background:var(--pink2);">
+  <div style="font-size:0.58em;font-weight:800;color:var(--red);margin-bottom:6px;">🎭 Role Play 1 — Find the station! 🚉</div>
+  <div style="font-size:var(--t-label);color:var(--gray);margin-bottom:var(--s3);font-family:'Noto Sans JP';">えきを さがそう · Practice in pairs · ⏱ 3 minutes</div>
+  <div style="font-size:var(--t-label);font-weight:700;color:var(--red);margin-bottom:var(--s2);text-transform:uppercase;letter-spacing:0.05em;">How to do it:</div>
+  <div style="font-size:var(--t-label);color:var(--ink);line-height:2.4;font-weight:500;">
     1. Watch teachers demonstrate<br>
     2. Try it with your partner<br>
     3. Swap roles<br>
@@ -683,157 +821,159 @@
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     22. ROLE PLAY 1 SCRIPT
-══════════════════════════════════════════════ -->
-<section style="background:var(--pink);">
-  <div style="font-size:0.55em;font-weight:700;color:var(--red);margin-bottom:0.5em;">🎭 Role Play 1 — Script</div>
+<!-- ══════════════════════════════════════════
+     22 · ROLE PLAY 1 SCRIPT
+══════════════════════════════════════════ -->
+<section style="background:var(--pink2);">
+  <div style="font-size:0.58em;font-weight:800;color:var(--red);margin-bottom:var(--s3);">🎭 Role Play 1 — Script</div>
   <div class="rp-box t">
     <div class="rp-who">🧳 You — Tourist</div>
     <div class="rp-line">すみません！　えき は どこですか？</div>
     <div class="rp-rom">sumimasen! eki wa doko desu ka? — "Excuse me! Where is the station?"</div>
   </div>
   <div class="rp-box l">
-    <div class="rp-who">🙋 Local Person</div>
+    <div class="rp-who gray">🙋 Local Person</div>
     <div class="rp-line">あ、こっちですよ！</div>
     <div class="rp-rom">a, kocchi desu yo! — "Oh, it's this way!"</div>
   </div>
-  <div class="rp-tip">→ さいごに 「ありがとう ございます！」— don't forget to thank them! 🙏</div>
+  <div class="rp-tip" style="font-family:'Noto Sans JP';">→ さいごに 「ありがとう ございます！」— don't forget to thank them! 🙏</div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     23. STEP 3 DIVIDER
-══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════
+     23 · STEP 3 DIVIDER
+══════════════════════════════════════════ -->
 <section class="p0"
   data-background-image="https://images.unsplash.com/photo-1758401732965-0b43223ce562?w=1280&q=80&fit=crop"
   data-background-size="cover">
-  <div class="pbox red" style="text-align:center;">
-    <div style="font-size:0.55em;font-weight:700;color:rgba(255,255,255,0.78);letter-spacing:0.12em;margin-bottom:0.3em;">STEP 3</div>
-    <div style="font-size:2.0em;font-weight:900;color:#fff;line-height:1.05;text-shadow:0 2px 10px rgba(0,0,0,0.3);">ともだちを<br>つくる</div>
-    <div style="font-size:0.65em;color:rgba(255,255,255,0.9);margin-top:0.4em;">Make a friend</div>
+  <div class="pbox pbox-red" style="text-align:center;">
+    <div style="font-size:var(--t-label);font-weight:700;color:rgba(255,255,255,0.72);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:var(--s2);">Step 3</div>
+    <div style="font-size:2.1em;font-weight:900;color:#fff;line-height:1.05;font-family:'Noto Sans JP',sans-serif;text-shadow:0 2px 12px rgba(0,0,0,0.2);">ともだちを<br>つくる</div>
+    <div style="font-size:0.68em;color:rgba(255,255,255,0.9);margin-top:var(--s2);font-weight:600;">Make a friend</div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     24. なまえは なんですか？
-══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════
+     24 · なまえは なんですか？
+══════════════════════════════════════════ -->
 <section>
   <div class="rbar"></div>
-  <div class="lbl">STEP 3 · What's your name?</div>
-  <span class="jp" style="font-size:1.85em;">なまえは<br>なんですか？</span>
+  <div class="lbl">Step 3 · What's your name?</div>
+  <span class="jp" style="font-size:1.9em;line-height:1.1;">なまえは<br>なんですか？</span>
   <span class="ro">namae wa nan desu ka?</span>
-  <span class="en">"What's your name?"</span>
-  <span class="note">あいての なまえを きいて みよう！ Ask the person next to you!</span>
+  <div style="font-size:var(--t-body);color:var(--ink);margin-top:8px;font-weight:500;">"What's your name?"</div>
+  <div class="hr"></div>
+  <span class="note" style="font-family:'Noto Sans JP';">あいての なまえを きいて みよう！ Ask the person next to you!</span>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     25. ___ です
-══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════
+     25 · ___ です
+══════════════════════════════════════════ -->
 <section>
   <div class="rbar"></div>
-  <div class="lbl">STEP 3 · How to answer</div>
+  <div class="lbl">Step 3 · How to answer</div>
   <span class="jp">___ です。</span>
   <span class="ro">___ desu.</span>
-  <span class="en">"I'm ___." — Just say your name + です！</span>
-  <span class="note">なまえを いれるだけ！ Super easy! 😊</span>
+  <div style="font-size:var(--t-body);color:var(--ink);margin-top:8px;font-weight:500;">"I'm ___." — Just say your name + です！</div>
+  <div class="hr"></div>
+  <span class="note" style="font-family:'Noto Sans JP';">なまえを いれるだけ！ Super easy! 😊</span>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     26. EXAMPLE DIALOGUE
-══════════════════════════════════════════════ -->
-<section style="background:var(--pink);">
-  <div class="lbl">STEP 3 · Example dialogue</div>
+<!-- ══════════════════════════════════════════
+     26 · EXAMPLE DIALOGUE
+══════════════════════════════════════════ -->
+<section style="background:var(--pink2);">
+  <div class="lbl">Step 3 · Example dialogue</div>
   <div class="dbox a fragment">
     <div class="dwho">A:</div>
     <div class="djp">なまえは なんですか？</div>
     <div class="dro">namae wa nan desu ka? — "What's your name?"</div>
   </div>
   <div class="dbox b fragment">
-    <div class="dwho" style="color:#666;">B:</div>
+    <div class="dwho" style="color:var(--gray);">B:</div>
     <div class="djp">ジョン です。</div>
     <div class="dro">John desu. — "I'm John."</div>
   </div>
   <div class="dbox c fragment">
-    <div class="dwho" style="color:#B8860B;">Both:</div>
+    <div class="dwho" style="color:#D97706;">Both:</div>
     <div class="djp">よろしく おねがいします！</div>
     <div class="dro">yoroshiku onegai shimasu! — "Nice to meet you!"</div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     27. ROLE PLAY 2
-══════════════════════════════════════════════ -->
-<section style="background:var(--pink);">
-  <div style="font-size:0.55em;font-weight:700;color:var(--red);margin-bottom:0.25em;">🎭 Role Play 2 — At a café ☕</div>
-  <div style="font-size:0.36em;color:var(--gray);margin-bottom:0.7em;">となりの ひとと はなそう · ⏱ 3 minutes</div>
-  <div style="font-size:0.38em;font-weight:700;color:var(--red);margin-bottom:8px;">The full sequence:</div>
-  <div style="font-size:0.38em;color:var(--dark);line-height:2.4;">
-    1. すみません！&nbsp;&nbsp;<span style="color:var(--gray);">(excuse me)</span><br>
-    2. なまえは なんですか？&nbsp;&nbsp;<span style="color:var(--gray);">(what's your name?)</span><br>
-    3. ___ です。&nbsp;&nbsp;<span style="color:var(--gray);">(I'm ___)</span><br>
-    4. よろしく おねがいします！&nbsp;&nbsp;<span style="color:var(--gray);">(nice to meet you!)</span>
+<!-- ══════════════════════════════════════════
+     27 · ROLE PLAY 2
+══════════════════════════════════════════ -->
+<section style="background:var(--pink2);">
+  <div style="font-size:0.58em;font-weight:800;color:var(--red);margin-bottom:6px;">🎭 Role Play 2 — At a café ☕</div>
+  <div style="font-size:var(--t-label);color:var(--gray);margin-bottom:var(--s3);font-family:'Noto Sans JP';">となりの ひとと はなそう · ⏱ 3 minutes</div>
+  <div style="font-size:var(--t-label);font-weight:700;color:var(--red);margin-bottom:var(--s2);text-transform:uppercase;letter-spacing:0.05em;">The full sequence:</div>
+  <div style="font-size:var(--t-label);color:var(--ink);line-height:2.5;font-weight:500;font-family:'Noto Sans JP';">
+    1. すみません！<span style="color:var(--gray);font-family:'Plus Jakarta Sans';">&emsp;(excuse me)</span><br>
+    2. なまえは なんですか？<span style="color:var(--gray);font-family:'Plus Jakarta Sans';">&emsp;(what's your name?)</span><br>
+    3. ___ です。<span style="color:var(--gray);font-family:'Plus Jakarta Sans';">&emsp;(I'm ___)</span><br>
+    4. よろしく おねがいします！<span style="color:var(--gray);font-family:'Plus Jakarta Sans';">&emsp;(nice to meet you!)</span>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     28. STAND UP
-══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════
+     28 · STAND UP
+══════════════════════════════════════════ -->
 <section data-background-color="#C8102E" style="text-align:center;">
-  <div style="font-size:2.0em;margin-bottom:0.2em;">🙌</div>
-  <div style="font-size:1.3em;font-weight:900;color:#fff;">Stand up!</div>
-  <div style="font-size:0.52em;color:rgba(255,255,255,0.85);margin-top:0.2em;">ぜんいん たって、みんなと はなそう！</div>
-  <div style="font-size:0.7em;font-weight:700;color:#fff;margin-top:0.4em;">Talk to EVERYONE in the room!</div>
-  <div style="font-size:0.46em;color:rgba(255,255,255,0.8);margin-top:0.8em;">
+  <div style="font-size:2.2em;margin-bottom:var(--s2);">🙌</div>
+  <div style="font-size:1.35em;font-weight:900;color:#fff;">Stand up!</div>
+  <div style="font-size:0.5em;color:rgba(255,255,255,0.82);margin-top:var(--s1);font-family:'Noto Sans JP',sans-serif;">ぜんいん たって、みんなと はなそう！</div>
+  <div style="font-size:0.65em;font-weight:700;color:#fff;margin-top:var(--s3);">Talk to EVERYONE in the room!</div>
+  <div style="font-size:0.44em;color:rgba(255,255,255,0.75);margin-top:var(--s4);font-family:'Noto Sans JP',sans-serif;">
     すみません &nbsp;·&nbsp; なまえは？ &nbsp;·&nbsp; よろしく！
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     29. IZAKAYA TIP (photo bg)
-══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════
+     29 · IZAKAYA TIP
+══════════════════════════════════════════ -->
 <section class="p0"
   data-background-image="https://images.unsplash.com/photo-1572291244855-44aa55da2137?w=1280&q=80&fit=crop"
   data-background-size="cover">
-  <div class="pbox" style="text-align:center;">
-    <div class="pw-badge solid">🇯🇵 Real Japan Tip — Izakaya 居酒屋</div>
-    <span class="pw-h">🍶 A great place to make friends!</span>
-    <span class="pw-sub">いざかやは ともだちづくりの チャンス！</span>
-    <span class="pw-body">A casual Japanese bar/pub — perfect for meeting locals in Tokyo.</span>
-    <div class="pw-cta">One friendly すみません can spark a friendship! 🤝</div>
+  <div class="pbox pbox-dark" style="text-align:center;">
+    <div class="badge badge-white" style="margin-bottom:var(--s3);">🇯🇵 Real Japan Tip — Izakaya 居酒屋</div>
+    <span class="ph">🍶 A great place to make friends!</span>
+    <span class="psub" style="font-family:'Noto Sans JP';">いざかやは ともだちづくりの チャンス！</span>
+    <span class="pbody">A casual Japanese bar — perfect for meeting locals in Tokyo.</span>
+    <div class="pcta">One friendly word can spark a friendship! 🤝</div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     30. おすすめは なんですか？
-══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════
+     30 · おすすめは なんですか？
+══════════════════════════════════════════ -->
 <section class="p0"
   data-background-image="https://images.unsplash.com/photo-1758401732965-0b43223ce562?w=1280&q=80&fit=crop"
   data-background-size="cover">
-  <div class="pbox lite" style="padding:40px 64px;">
+  <div class="pbox pbox-lite" style="padding:var(--s5) var(--s6);">
     <div class="lbl">Bonus · At the izakaya</div>
-    <span class="jp" style="font-size:1.75em;">おすすめは<br>なんですか？</span>
+    <span class="jp" style="font-size:1.8em;line-height:1.1;">おすすめは<br>なんですか？</span>
     <span class="ro">osusume wa nan desu ka?</span>
-    <span class="en">"What do you recommend?" 🍣</span>
-    <span class="note">Ask the staff — they love being asked!</span>
+    <div style="font-size:var(--t-body);color:var(--ink);margin-top:8px;font-weight:500;">"What do you recommend?" 🍣</div>
+    <span class="note" style="font-family:'Noto Sans JP';">Ask the staff — they love being asked!</span>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     31. かんぱい
-══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════
+     31 · かんぱい
+══════════════════════════════════════════ -->
 <section data-background-color="#C8102E" style="text-align:center;">
   <div style="font-size:3.0em;">🍻</div>
-  <div style="font-size:2.0em;font-weight:900;color:#fff;margin-top:0.1em;">かんぱい！</div>
-  <div style="font-size:0.55em;color:rgba(255,255,255,0.85);margin-top:0.3em;">kanpai! — Cheers! 🎉</div>
+  <div style="font-size:2.1em;font-weight:900;color:#fff;margin-top:var(--s2);font-family:'Noto Sans JP',sans-serif;">かんぱい！</div>
+  <div style="font-size:0.55em;color:rgba(255,255,255,0.82);margin-top:var(--s2);font-weight:500;">kanpai! — Cheers! 🎉</div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     32. GREAT WORK
-══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════
+     32 · GREAT WORK
+══════════════════════════════════════════ -->
 <section>
   <div class="rbar"></div>
-  <div style="font-size:0.38em;color:var(--red);font-weight:700;margin-bottom:0.25em;">おつかれさま！</div>
-  <div style="font-size:1.0em;font-weight:800;color:var(--dark);margin-bottom:0.6em;">Great work today! 🎉</div>
+  <div style="font-size:var(--t-label);color:var(--red);font-weight:700;margin-bottom:6px;font-family:'Noto Sans JP';">おつかれさま！</div>
+  <div style="font-size:var(--t-h1);font-weight:800;color:var(--ink);">Great work today! 🎉</div>
   <div class="wgrid">
     <div class="witem">
       <span class="wicon">🙋</span>
@@ -851,91 +991,91 @@
       <div class="wen">Make a friend</div>
     </div>
   </div>
-  <div style="font-size:0.38em;color:var(--red);font-weight:700;margin-top:0.9em;">You can already have a real conversation in Japanese! 🇯🇵</div>
+  <div style="font-size:var(--t-label);color:var(--red);font-weight:700;margin-top:var(--s3);">You can already have a real conversation in Japanese! 🇯🇵</div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     33. CHEAT SHEET
-══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════
+     33 · CHEAT SHEET
+══════════════════════════════════════════ -->
 <section>
   <div class="rbar"></div>
-  <div style="font-size:0.38em;color:var(--red);font-weight:700;margin-bottom:0.4em;">Take this cheat-sheet home! 📄</div>
+  <div style="font-size:var(--t-label);color:var(--red);font-weight:700;margin-bottom:var(--s2);">Take this cheat-sheet home! 📄</div>
   <div class="cheat">
     <div class="citem">
-      <div class="cnum">1</div>
+      <div class="cnum">① Excuse me / Sorry</div>
       <div class="cjp">すみません</div>
-      <div class="cro">sumimasen · Excuse me / Sorry</div>
+      <div class="cro">sumimasen</div>
     </div>
     <div class="citem">
-      <div class="cnum">2</div>
+      <div class="cnum">② Where is ~?</div>
       <div class="cjp">〜はどこですか？</div>
-      <div class="cro">~ wa doko desu ka? · Where is ~?</div>
+      <div class="cro">~ wa doko desu ka?</div>
     </div>
     <div class="citem">
-      <div class="cnum">3</div>
+      <div class="cnum">③ Thank you</div>
       <div class="cjp">ありがとう</div>
-      <div class="cro">arigatou · Thank you</div>
+      <div class="cro">arigatou</div>
     </div>
     <div class="citem">
-      <div class="cnum">4</div>
+      <div class="cnum">④ What's your name?</div>
       <div class="cjp">なまえはなんですか？</div>
-      <div class="cro">namae wa nan desu ka? · What's your name?</div>
+      <div class="cro">namae wa nan desu ka?</div>
     </div>
     <div class="citem">
-      <div class="cnum">5</div>
+      <div class="cnum">⑤ I'm ___.</div>
       <div class="cjp">___ です。</div>
-      <div class="cro">___ desu. · I'm ___.</div>
+      <div class="cro">___ desu.</div>
     </div>
     <div class="citem">
-      <div class="cnum">6</div>
+      <div class="cnum">⑥ Cheers!</div>
       <div class="cjp">かんぱい！</div>
-      <div class="cro">kanpai! · Cheers!</div>
+      <div class="cro">kanpai!</div>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     34. PRICING
-══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════
+     34 · PRICING
+══════════════════════════════════════════ -->
 <section>
   <div class="rbar"></div>
-  <div style="font-size:0.38em;color:var(--red);font-weight:700;margin-bottom:0.4em;">りょうきん · Pricing</div>
+  <div style="font-size:var(--t-label);color:var(--red);font-weight:700;margin-bottom:var(--s2);font-family:'Noto Sans JP';">りょうきん · Pricing</div>
   <div class="pgrid">
     <div class="pcard g">
       <div class="picon">🧑‍🤝‍🧑</div>
-      <span class="ptype">GROUP · グループ（最大8名）</span>
+      <span class="ptype">Group · グループ（最大8名）</span>
       <span class="pamt">$35</span>
       <div class="punit">per hour</div>
       <div class="pbadge">🎉 30% OFF — July launch!</div>
     </div>
     <div class="pcard p">
       <div class="picon">🧑‍🏫</div>
-      <span class="ptype">PRIVATE · プライベート</span>
+      <span class="ptype">Private · プライベート</span>
       <span class="pamt">$50</span>
       <div class="punit">per hour</div>
-      <div class="pbadge" style="background:#888;">Standard price</div>
+      <div class="pbadge" style="background:#6B7280;">Standard price</div>
     </div>
   </div>
-  <div style="font-size:0.32em;color:var(--gray);margin-top:0.7em;font-style:italic;">
+  <div style="font-size:var(--t-micro);color:var(--gray);margin-top:var(--s3);font-style:italic;font-weight:500;">
     Single lessons + 10-lesson packs available · 単発 ＋ 10回パック
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     35. CTA
-══════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════
+     35 · CTA
+══════════════════════════════════════════ -->
 <section class="p0"
   data-background-image="https://images.unsplash.com/photo-1747225205040-661ecf99d903?w=1280&q=80&fit=crop"
   data-background-size="cover">
-  <div class="pbox red" style="text-align:center;">
-    <div style="font-size:1.0em;font-weight:900;color:#fff;margin-bottom:0.15em;">Lessons start in July! 🎌</div>
-    <div style="font-size:0.5em;color:rgba(255,255,255,0.85);margin-bottom:0.7em;">7がつから スタート！</div>
-    <div style="background:rgba(255,255,255,0.18);border:2px solid rgba(255,255,255,0.45);border-radius:14px;padding:18px 36px;display:inline-block;margin-bottom:0.5em;">
-      <div style="font-size:0.85em;font-weight:900;color:#fff;">📱 @japanese_learning_sydney</div>
-      <div style="font-size:0.38em;color:rgba(255,255,255,0.85);margin-top:0.3em;">Follow us & DM to join!</div>
+  <div class="pbox pbox-red" style="text-align:center;">
+    <div style="font-size:1.05em;font-weight:900;color:#fff;margin-bottom:6px;">Lessons start in July! 🎌</div>
+    <div style="font-size:0.48em;color:rgba(255,255,255,0.82);margin-bottom:var(--s4);font-family:'Noto Sans JP',sans-serif;">7がつから スタート！</div>
+    <div style="background:rgba(255,255,255,0.18);border:2px solid rgba(255,255,255,0.4);border-radius:var(--r-md);padding:var(--s3) var(--s5);display:inline-block;margin-bottom:var(--s3);">
+      <div style="font-size:0.88em;font-weight:800;color:#fff;">📱 @japanese_learning_sydney</div>
+      <div style="font-size:var(--t-label);color:rgba(255,255,255,0.82);margin-top:var(--s1);font-weight:500;">Follow us & DM to join!</div>
     </div>
-    <div style="font-size:0.38em;color:rgba(255,255,255,0.9);">📍 Every Sunday · Darling Square Library, Sydney</div>
-    <div style="font-size:0.3em;color:rgba(255,255,255,0.65);margin-top:0.8em;">Learn Japanese · Build Confidence · Connect with Japan</div>
+    <div style="font-size:var(--t-label);color:rgba(255,255,255,0.9);font-weight:500;">📍 Every Sunday · Darling Square Library, Sydney</div>
+    <div style="font-size:var(--t-micro);color:rgba(255,255,255,0.55);margin-top:var(--s3);">Learn Japanese · Build Confidence · Connect with Japan</div>
   </div>
 </section>
 
