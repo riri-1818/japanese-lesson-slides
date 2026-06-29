@@ -179,6 +179,88 @@
 .step-n { width: 42px; height: 42px; background: var(--red); color: #fff; border-radius: 50%; font-size: .38em; font-weight: 800; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
 .step-t { font-size: .5em; font-weight: 700; color: var(--ink); display: block; font-family: 'Noto Sans JP'; }
 .step-e { font-size: .36em; color: var(--gray); display: block; margin-top: 4px; font-weight: 500; }
+
+/* ── SPLIT LAYOUT ── */
+.reveal .slides section.split {
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: row;
+  overflow: hidden;
+}
+/* Photo panel — left side (55%) */
+.split-photo {
+  flex: 0 0 55%;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+.split-photo::after {
+  content: '';
+  position: absolute;
+  right: 0; top: 0; bottom: 0;
+  width: 40px;
+  background: linear-gradient(to right, transparent, rgba(0,0,0,.18));
+}
+/* Text panel — right side (45%) */
+.split-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 54px 60px 48px 52px;
+  box-sizing: border-box;
+}
+/* Text panel — left side (for some slides) */
+.split-text-l {
+  flex: 0 0 54%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 52px 56px;
+  box-sizing: border-box;
+  position: relative;
+}
+/* Photo panel — right side */
+.split-photo-r {
+  flex: 1;
+  background-size: cover;
+  background-position: center;
+}
+
+/* ── EDITORIAL LIST (no card borders) ── */
+.elist { margin-top: 22px; }
+.eitem {
+  display: flex;
+  gap: 18px;
+  padding: 19px 0;
+  border-bottom: 1px solid var(--line);
+  align-items: flex-start;
+}
+.eitem:first-child { border-top: 1px solid var(--line); }
+.eitem-n {
+  font-size: .7em;
+  font-weight: 900;
+  color: var(--red);
+  line-height: 1;
+  min-width: 34px;
+  padding-top: 2px;
+}
+.eitem-t { font-size: .5em; font-weight: 700; color: var(--ink); display: block; line-height: 1.35; }
+.eitem-s { font-size: .35em; color: var(--gray); margin-top: 5px; display: block; font-family: 'Noto Sans JP'; }
+
+/* ── CORNER PHOTO ACCENT (slight rotation = human feel) ── */
+.cph {
+  position: absolute;
+  top: 48px;
+  right: 56px;
+  width: 216px;
+  height: 144px;
+  border-radius: 12px;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 8px 28px rgba(0,0,0,.22);
+  transform: rotate(1.5deg);
+}
 </style>
 </head>
 <body>
@@ -202,30 +284,39 @@
 </section>
 
 <!-- ════════════ 2. WHO IS THIS FOR ════════════ -->
-<section>
-  <div class="bar"></div>
-  <div class="lbl">This lesson is for you if...</div>
-  <div class="t1">Who is this lesson for?</div>
-  <div class="nlist">
-    <div class="nitem fragment">
-      <div class="nitem-n">1</div>
-      <div>
-        <div class="nitem-text">You want to travel to Japan</div>
-        <div class="nitem-sub">にほんを りょこうしたい</div>
-      </div>
+<section class="split">
+  <!-- LEFT: Japan photo -->
+  <div class="split-photo"
+    style="background-image:url('https://images.unsplash.com/photo-1585574362839-63b0c1b09ad4?w=900&q=85&fit=crop&auto=format');">
+    <div style="position:absolute;bottom:36px;left:32px;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);color:rgba(255,255,255,.9);font-size:.28em;font-weight:700;padding:8px 16px;border-radius:8px;letter-spacing:.04em;">
+      That's you in 60 minutes ↗
     </div>
-    <div class="nitem fragment">
-      <div class="nitem-n">2</div>
-      <div>
-        <div class="nitem-text">You want to live or work in Japan</div>
-        <div class="nitem-sub">にほんに すみたい・はたらきたい</div>
+  </div>
+  <!-- RIGHT: editorial list -->
+  <div class="split-text">
+    <div class="lbl">This lesson is for you if...</div>
+    <div class="t1" style="margin-bottom:4px;">Who is this for?</div>
+    <div class="elist">
+      <div class="eitem fragment">
+        <div class="eitem-n">01</div>
+        <div>
+          <span class="eitem-t">You want to travel to Japan</span>
+          <span class="eitem-s">にほんを りょこうしたい</span>
+        </div>
       </div>
-    </div>
-    <div class="nitem fragment">
-      <div class="nitem-n">3</div>
-      <div>
-        <div class="nitem-text">You love Japanese culture — anime, food, music</div>
-        <div class="nitem-sub">にほんの ぶんかが だいすき</div>
+      <div class="eitem fragment">
+        <div class="eitem-n">02</div>
+        <div>
+          <span class="eitem-t">You want to live or work in Japan</span>
+          <span class="eitem-s">にほんに すみたい・はたらきたい</span>
+        </div>
+      </div>
+      <div class="eitem fragment">
+        <div class="eitem-n">03</div>
+        <div>
+          <span class="eitem-t">You love Japanese culture — anime, food, music</span>
+          <span class="eitem-s">にほんの ぶんかが だいすき</span>
+        </div>
       </div>
     </div>
   </div>
@@ -330,13 +421,16 @@
 </section>
 
 <!-- ════════════ 8. SITUATION 1 ANSWER ════════════ -->
-<section>
+<section style="position:relative;">
   <div class="bar"></div>
-  <div class="lbl">Situation ① — Answer</div>
-  <div style="font-size:.5em;color:var(--gray);margin-bottom:4px;font-weight:500;">Calling staff in a restaurant</div>
-  <span class="jp jp-red" style="font-size:2.8em;">すみません！</span>
-  <span class="ro">sumimasen!</span>
-  <div class="box-note">Raise your hand as you say it — staff will come right away.</div>
+  <div class="cph" style="background-image:url('https://images.unsplash.com/photo-1746274223799-818414e9d94a?w=500&q=80&fit=crop&auto=format');"></div>
+  <div style="max-width:60%;">
+    <div class="lbl">Situation ① — Answer</div>
+    <div style="font-size:.5em;color:var(--gray);margin-bottom:4px;font-weight:500;">Calling staff in a restaurant</div>
+    <span class="jp jp-red" style="font-size:2.8em;">すみません！</span>
+    <span class="ro">sumimasen!</span>
+    <div class="box-note">Raise your hand as you say it — staff will come right away.</div>
+  </div>
 </section>
 
 <!-- ════════════ 9. SITUATION 2 GUESS ════════════ -->
@@ -353,13 +447,16 @@
 </section>
 
 <!-- ════════════ 10. SITUATION 2 ANSWER ════════════ -->
-<section>
+<section style="position:relative;">
   <div class="bar"></div>
-  <div class="lbl">Situation ② — Answer</div>
-  <div style="font-size:.5em;color:var(--gray);margin-bottom:4px;font-weight:500;">Saying sorry — bumped into someone</div>
-  <span class="jp jp-red" style="font-size:2.8em;">すみません！</span>
-  <span class="ro">sumimasen!</span>
-  <div class="box-note">A quick bow adds even more politeness. Japanese people will appreciate it.</div>
+  <div class="cph" style="background-image:url('https://images.unsplash.com/photo-1585574362839-63b0c1b09ad4?w=500&q=80&fit=crop&auto=format');"></div>
+  <div style="max-width:60%;">
+    <div class="lbl">Situation ② — Answer</div>
+    <div style="font-size:.5em;color:var(--gray);margin-bottom:4px;font-weight:500;">Saying sorry — bumped into someone</div>
+    <span class="jp jp-red" style="font-size:2.8em;">すみません！</span>
+    <span class="ro">sumimasen!</span>
+    <div class="box-note">A quick bow adds even more politeness. Japanese people will appreciate it.</div>
+  </div>
 </section>
 
 <!-- ════════════ 11. SITUATION 3 GUESS ════════════ -->
@@ -376,13 +473,16 @@
 </section>
 
 <!-- ════════════ 12. SITUATION 3 ANSWER ════════════ -->
-<section>
+<section style="position:relative;">
   <div class="bar"></div>
-  <div class="lbl">Situation ③ — Answer</div>
-  <div style="font-size:.5em;color:var(--gray);margin-bottom:4px;font-weight:500;">Passing in front of someone</div>
-  <span class="jp jp-red" style="font-size:2.8em;">すみません</span>
-  <span class="ro">sumimasen</span>
-  <div class="box-note">A small bow as you pass. No need to stop — just acknowledge them.</div>
+  <div class="cph" style="background-image:url('https://images.unsplash.com/photo-1590253230532-a67f6bc61c9e?w=500&q=80&fit=crop&auto=format');"></div>
+  <div style="max-width:60%;">
+    <div class="lbl">Situation ③ — Answer</div>
+    <div style="font-size:.5em;color:var(--gray);margin-bottom:4px;font-weight:500;">Passing in front of someone</div>
+    <span class="jp jp-red" style="font-size:2.8em;">すみません</span>
+    <span class="ro">sumimasen</span>
+    <div class="box-note">A small bow as you pass. No need to stop — just acknowledge them.</div>
+  </div>
 </section>
 
 <!-- ════════════ 13. SAY IT 3 TIMES ════════════ -->
@@ -406,25 +506,31 @@
 </section>
 
 <!-- ════════════ 15. PATTERN ════════════ -->
-<section>
-  <div class="bar"></div>
-  <div class="lbl">Step 2 · Master this one pattern</div>
-  <span class="jp">〜は どこですか？</span>
-  <span class="ro">~ wa doko desu ka?</span>
-  <span class="en">"Where is ~ ?"</span>
-  <div class="box-note">Replace 〜 with any place. That's all you need to ask directions anywhere in Japan.</div>
+<section class="split">
+  <div class="split-text-l">
+    <div class="bar"></div>
+    <div class="lbl">Step 2 · Master this one pattern</div>
+    <span class="jp">〜は どこですか？</span>
+    <span class="ro">~ wa doko desu ka?</span>
+    <span class="en">"Where is ~ ?"</span>
+    <div class="box-note">Replace 〜 with any place. That's all you need to ask directions anywhere in Japan.</div>
+  </div>
+  <div class="split-photo-r" style="background-image:url('https://images.unsplash.com/photo-1572291244855-44aa55da2137?w=900&q=85&fit=crop&auto=format');"></div>
 </section>
 
 <!-- ════════════ 16. えき ════════════ -->
-<section>
-  <div class="bar"></div>
-  <div class="lbl">Step 2 · Word to know</div>
-  <span class="jp">えき</span>
-  <span class="ro">eki — station</span>
-  <div class="phrase-box">
-    <span class="pb-big">えき は どこですか？</span>
-    <span class="pb-ro">eki wa doko desu ka? — "Where is the station?"</span>
+<section class="split">
+  <div class="split-text-l">
+    <div class="bar"></div>
+    <div class="lbl">Step 2 · Word to know</div>
+    <span class="jp">えき</span>
+    <span class="ro">eki — station</span>
+    <div class="phrase-box">
+      <span class="pb-big">えき は どこですか？</span>
+      <span class="pb-ro">eki wa doko desu ka? — "Where is the station?"</span>
+    </div>
   </div>
+  <div class="split-photo-r" style="background-image:url('https://images.unsplash.com/photo-1743294812353-1202e5cca355?w=900&q=85&fit=crop&auto=format');background-position:center top;"></div>
 </section>
 
 <!-- ════════════ 17. トイレ ════════════ -->
@@ -454,13 +560,21 @@
 </section>
 
 <!-- ════════════ 19. ありがとう ════════════ -->
-<section>
-  <div class="bar"></div>
-  <div class="lbl">Step 2 · After they help you</div>
-  <span class="jp">ありがとう</span>
-  <span class="ro">arigatou</span>
-  <span class="en">Thank you</span>
-  <div class="box-note" style="font-family:'Noto Sans JP';">ついて いって、さいごに ひとこと — follow them, then say this at the end.</div>
+<section class="split">
+  <!-- photo left: cherry blossom / warm Japan scene -->
+  <div class="split-photo"
+    style="background-image:url('https://images.unsplash.com/photo-1522518961115-07c922089dd4?w=900&q=85&fit=crop&auto=format');">
+    <div style="position:absolute;bottom:36px;left:32px;background:rgba(0,0,0,.52);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);color:rgba(255,255,255,.9);font-size:.28em;font-weight:700;padding:8px 16px;border-radius:8px;">
+      Shinjuku Gyoen, Tokyo
+    </div>
+  </div>
+  <div class="split-text">
+    <div class="lbl">Step 2 · After they help you</div>
+    <span class="jp">ありがとう</span>
+    <span class="ro">arigatou</span>
+    <span class="en">Thank you</span>
+    <div class="box-note" style="font-family:'Noto Sans JP';margin-top:24px;">ついて いって、さいごに ひとこと — follow them, then say this at the end.</div>
+  </div>
 </section>
 
 <!-- ════════════ 20. RP1 SETUP ════════════ -->
@@ -515,13 +629,16 @@
 </section>
 
 <!-- ════════════ 23. なまえは ════════════ -->
-<section>
+<section style="position:relative;">
   <div class="bar"></div>
-  <div class="lbl">Step 3 · Ask their name</div>
-  <span class="jp" style="font-size:2.0em;line-height:1.1;">なまえは<br>なんですか？</span>
-  <span class="ro">namae wa nan desu ka?</span>
-  <span class="en">"What's your name?"</span>
-  <div class="box-note" style="font-family:'Noto Sans JP';">あいての なまえを きいて みよう — ask the person next to you right now!</div>
+  <div class="cph" style="background-image:url('https://images.unsplash.com/photo-1590253230532-a67f6bc61c9e?w=500&q=80&fit=crop&auto=format');"></div>
+  <div style="max-width:60%;">
+    <div class="lbl">Step 3 · Ask their name</div>
+    <span class="jp" style="font-size:2.0em;line-height:1.1;">なまえは<br>なんですか？</span>
+    <span class="ro">namae wa nan desu ka?</span>
+    <span class="en">"What's your name?"</span>
+    <div class="box-note" style="font-family:'Noto Sans JP';margin-top:24px;">あいての なまえを きいて みよう — ask the person next to you right now!</div>
+  </div>
 </section>
 
 <!-- ════════════ 24. ___ です ════════════ -->
